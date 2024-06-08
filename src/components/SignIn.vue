@@ -55,7 +55,7 @@
         console.log('Email ->', email.value, ', Password ->', password.value);
   
         try {
-          const response = await axios.post('http://localhost:1024/login', {
+          const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
             email: email.value,
             password: password.value
           });

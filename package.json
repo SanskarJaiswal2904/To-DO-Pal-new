@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
     "flask-cors": "^0.0.1",
     "pinia": "^2.1.7",
     "v-tooltip": "^2.1.3",

@@ -98,7 +98,7 @@ export default {
 
             printEveryModel();
             
-            if (isAdmin.value == true && adminCode.value !== "994d7148-f428-4be9-a16d-d723b6fe4e60") {
+            if (isAdmin.value == true && adminCode.value !== import.meta.env.VITE_ADMIN_UUID_CODE) {
                 resetEveryModel();
                 error.value = "Admin Code is Invalid";
             }
@@ -119,7 +119,7 @@ export default {
                             isAdmin: isAdmin.value
                         };
 
-                        axios.post('http://localhost:1024/signup', userInfo)
+                        axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo)
                             .then(response => {
                                 alert("Account Created.");
                                 resetEveryModel();

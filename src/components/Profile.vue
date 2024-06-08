@@ -130,7 +130,7 @@ const updateProfile = async () => {
     try {
         isLoading.value = true;
         console.log("0", user.value._id)
-        const response = await axios.patch(`http://localhost:1024/profile/update/${user.value._id}`, {
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/profile/update/${user.value._id}`, {
             name: user.value.name,
             email: user.value.email,
             gender: user.value.gender

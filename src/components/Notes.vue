@@ -77,7 +77,7 @@ const saveText = async () => {
   const id = generateUniqueId();
 
   try {
-    const response = await axios.post('http://localhost:1024/notes', {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/notes`, {
       _id: id,
       title: title.value,
       description: text.value,
@@ -156,7 +156,7 @@ onMounted(async () => {
   try {
     isLoading.value = true;
     console.log(userInfo.value._id.$oid)
-    const response = await axios.get(`http://localhost:1024/notes/user/${userInfo.value._id.$oid}`);
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/notes/user/${userInfo.value._id.$oid}`);
     if (response.status === 200) {
       // Process each note to format the datecreated field
       notes.value = response.data.map(note => {
@@ -181,7 +181,7 @@ const taskdone = async (note) => {
   console.log(note.isCompleted);
   console.log(note._id)
   try {
-    const response = await axios.patch(`http://localhost:1024/notes/update/${note._id.$oid}`, {
+    const response = await axios.patch(`${import.meta.env.VITE_API_URL}/notes/update/${note._id.$oid}`, {
       isCompleted: note.isCompleted
     });
     if (response.status === 200) {

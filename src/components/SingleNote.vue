@@ -90,7 +90,7 @@
       const parsedUser = JSON.parse(user);
     
       try {
-        const response = await axios.delete('http://localhost:1024/notes/deleteall/' + parsedUser._id.$oid);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteall/${parsedUser._id.$oid}`);
         if (response.status === 200) {
           console.log('All notes deleted successfully');
         }
@@ -103,7 +103,7 @@
     const deleteOne = async (sno) => {
         console.log(sno)
       try {
-        const response = await axios.delete(`http://localhost:1024/notes/deleteone/${sno.$oid}`);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteone/${sno.$oid}`);
         if (response.status === 200) {
           console.log(`Note ${sno} deleted successfully`);
           location.reload();
@@ -125,7 +125,7 @@
     const updateNote = async () => {
         console.log(currentNote.value)
       try {
-        const response = await axios.patch(`http://localhost:1024/notes/update/${currentNote.value._id.$oid}`, {
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/notes/update/${currentNote.value._id.$oid}`, {
           title: currentNote.value.title,
           description: currentNote.value.description
         });

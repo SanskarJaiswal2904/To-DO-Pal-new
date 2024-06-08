@@ -53,7 +53,7 @@ const fetchUsers = async () => {
 
 const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(`http://localhost:1024/deleteUser/${userId}`);
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/deleteUser/${userId}`);
     if (response.status === 200) {
       users.value = users.value.filter(user => user._id !== userId);
       alert('User deleted successfully.');
@@ -133,7 +133,7 @@ onMounted(() => {
 
 //   try {
 //     const userEmail = JSON.parse(data).email;
-//     const response = await axios.get(`http://localhost:1024/user/getsingle/${userEmail}`);
+//     const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/getsingle/${userEmail}`);
 //     if (response.status === 200) {
 //       fetchUsers();
 //     } else {
@@ -264,7 +264,7 @@ const isLoading = ref(true);
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get('http://localhost:1024/alluser');
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/alluser`);
     users.value = response.data;
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -275,7 +275,7 @@ const fetchUsers = async () => {
 
 const deleteUser = async (userId) => {
   try {
-    const response = await axios.delete(`http://localhost:1024/deleteUser/${userId}`);
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/deleteUser/${userId}`);
     if (response.status === 200) {
       users.value = users.value.filter(user => user._id !== userId);
       alert('User and associated notes deleted successfully.');
