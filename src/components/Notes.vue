@@ -117,8 +117,8 @@ const saveText = async () => {
 
 const handleSearch = (searchTerm) => {
   console.log('Received search term:', searchTerm);
-  console.log(searchTerm.value.length)
-  if(searchTerm.value.length > 0){  
+  console.log(searchTerm.length)
+  if(searchTerm.length > 0){  
     filteredNotes.value = notes.value.filter(note => 
       note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       note.description.toLowerCase().includes(searchTerm.toLowerCase())
