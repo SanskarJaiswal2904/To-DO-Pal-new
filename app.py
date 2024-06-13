@@ -1,4 +1,4 @@
-##ENV Implemented
+##Everything Implemented
 #######################
 
 from flask import Flask, request, jsonify
@@ -10,7 +10,7 @@ from bson.json_util import dumps
 import bcrypt  # Import bcrypt for password hashing
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:5173"]}})  # Allow requests from your Vue app's origin
+CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app"]}})  # Allow requests from your Vue app's origin
 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/newtodopal"
 db = PyMongo(app).db
