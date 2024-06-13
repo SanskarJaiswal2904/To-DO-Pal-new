@@ -2,6 +2,11 @@
     <div class="not-found-container">
       <h1>404 - Page Not Found</h1>
       <p>Sorry, the page you are looking for does not exist.</p>
+      <div class="text-white2">
+        <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html">
+            <i class="fas fa-link"></i> Contact Sanskar
+        </a>
+    </div>
       <router-link to="/" class="home-link">Go to Homepage</router-link>
     </div>
   </template>
@@ -14,6 +19,12 @@
   </script>
   
   <style scoped>
+  .not-found-container .text-white2 {
+    text-decoration: none;
+    font-weight: lighter;
+    margin-bottom: 2rem;
+
+}
   .not-found-container {
     display: flex;
     flex-direction: column;

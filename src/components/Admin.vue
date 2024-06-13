@@ -235,7 +235,7 @@ button.delete-btn:hover {
         <div v-else>
           <h1>Users</h1>
           <ul>
-            <li v-for="user in users" :key="user._id" class="user-card">
+            <li v-for="user in users" :key="user._id" class="user-card" :title="user._id">
               <strong>Name: {{ user.name }}</strong>
               <strong style="font-style:italic">Email: {{ user.email }}</strong>
               <button class="delete-btn" @click="confirmDeleteUser(user._id, user.name)">Delete User</button>

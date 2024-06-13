@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted} from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import Footer from './Footer.vue';
@@ -74,11 +74,9 @@ const isLoading = ref(true);
 const userInfo = ref({});
 
 const saveText = async () => {
-  const id = generateUniqueId();
 
   try {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/notes`, {
-      _id: id,
       title: title.value,
       description: text.value,
       isCompleted: isCompleted.value,
@@ -86,6 +84,7 @@ const saveText = async () => {
     });
 
     if (response.status === 201) {
+      location.reload()
       const saveBtn = document.querySelector('.save-btn');
       if (saveBtn) {
         saveBtn.classList.add('clicked');
@@ -95,19 +94,16 @@ const saveText = async () => {
           text.value = '';
           title.value = '';
         }, 750);
-
+      }
         const temp = {
-          _id: id,
           title: title.value,
           description: text.value,
           userId: userInfo.value._id.$oid,
           isCompleted: isCompleted.value,
           datecreated: formatDate(new Date().toISOString())
         };
-
         notes.value.unshift(temp); // Add new note to the top
         filteredNotes.value.unshift(temp); // Add to filtered notes as well
-      }
     }
   } catch (error) {
     console.error('Error saving note:', error);
@@ -125,10 +121,6 @@ const handleSearch = (searchTerm) => {
     );
   }
 };
-
-function generateUniqueId() {
-  return '_' + Math.random().toString(36).substr(2, 9).toString();
-}
 
 function formatDate(dateStr) {
   const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
@@ -165,7 +157,13 @@ onMounted(async () => {
           datecreated: formatDate(note.datecreated.$date)
         };
       });
-      filteredNotes.value = notes.value; // Initialize filteredNotes with all notes
+      // filteredNotes.value = notes.value; // Initialize filteredNotes with all notes
+      filteredNotes.value = response.data.map(note => {
+        return {
+          ...note,
+          datecreated: formatDate(note.datecreated.$date)
+        };
+      });
     }
   } catch (error) {
     console.error(error.response.data.error);

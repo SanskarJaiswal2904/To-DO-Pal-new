@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in items" :key="item._id" class="note-card" :title="item._id">
+                <tr v-for="item in items" :key="item" class="note-card" :title="item._id.$oid">
                     <td>
                         <label for="done">
                             <input type="checkbox" name="done" :checked="item.isCompleted" @click="() => taskdone(item)">
@@ -56,9 +56,9 @@
             </div>
         </div>
     </div>
-    </template>
+</template>
     
-    <script setup>
+<script setup>
     import { ref } from 'vue';
     import axios from 'axios';
     
@@ -91,10 +91,10 @@
     
       try {
         const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteall/${parsedUser._id.$oid}`);
+        location.reload();
         if (response.status === 200) {
           console.log('All notes deleted successfully');
         }
-        location.reload();
       } catch (error) {
         console.error('Error deleting notes:', error);
       }
@@ -105,8 +105,8 @@
       try {
         const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteone/${sno.$oid}`);
         if (response.status === 200) {
-          console.log(`Note ${sno} deleted successfully`);
           location.reload();
+          console.log(`Note ${sno.$oid} deleted successfully`);
         }
       } catch (error) {
         console.error('Error deleting note:', error);
@@ -124,13 +124,15 @@
     
     const updateNote = async () => {
         console.log(currentNote.value)
+        console.log(currentNote.value._id)
+        console.log(currentNote.value._id.$oid)
       try {
         const response = await axios.patch(`${import.meta.env.VITE_API_URL}/notes/update/${currentNote.value._id.$oid}`, {
           title: currentNote.value.title,
           description: currentNote.value.description
         });
         if (response.status === 200) {
-          console.log(`Note ${currentNote.value._id} updated successfully`);
+          console.log(`Note ${currentNote.value._id.$oid} updated successfully`);
           closeModal();
           location.reload();
         }
