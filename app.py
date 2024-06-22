@@ -10,9 +10,17 @@ from bson.json_util import dumps
 import bcrypt  # Import bcrypt for password hashing
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app"]}})  # Allow requests from your Vue app's origin
+# CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app"]}})  # Allow requests from your Vue app's origin
+
+# CORS(app, resources={r"/*": {"origins": ["http://localhost:5173"]}})
+CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app", "http://localhost:5173"]}})
+
+
 
 app.config["MONGO_URI"] = "mongodb://localhost:27017/newtodopal"
+# app.config["MONGO_URI"] = "mongodb+srv://sanskarjaiswal2904:cLT81iq89uVmnBrP@todo.7w890j6.mongodb.net/newtodopal"
+
+
 db = PyMongo(app).db
 
 def hash_password(password):
@@ -32,7 +40,7 @@ def validate_user_data(data):
     if data.get('gender') not in ["male", "female", "others"]:
         errors['gender'] = "Gender must be 'male', 'female', or 'others'."
     return errors
-
+#
 # createSignup
 @app.route("/signup", methods=["POST"])
 def insertDB():

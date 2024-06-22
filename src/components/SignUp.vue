@@ -30,7 +30,7 @@
         <br><br>
 
         <label for="adminCode" name="adminCode" v-if="isAdmin">Admin UUID Code
-            <input type="text" placeholder="Admin Code" v-model="adminCode" name="adminCode" class="input-field" required>
+            <input type="text" placeholder="Admin code is 12345 (Dev_purpose)" v-model="adminCode" name="adminCode" class="input-field" required>
         </label>
 
         <h3>Gender:</h3>
@@ -98,10 +98,12 @@ export default {
 
             printEveryModel();
             
-            if (isAdmin.value == true && adminCode.value !== import.meta.env.VITE_ADMIN_UUID_CODE) {
-                resetEveryModel();
-                error.value = "Admin Code is Invalid";
+            if (isAdmin.value == true && 
+                (adminCode.value !== import.meta.env.VITE_ADMIN_UUID_CODE && 
+                adminCode.value !== import.meta.env.VITE_ADMIN_DEV_CODE)) {
+                        error.value = "Admin Code is Invalid";
             }
+
 
             if (validPassword === "Password is strong.") {
                 if (password.value !== cpassword.value) {
@@ -164,6 +166,10 @@ export default {
         onMounted(() => {
         document.title = "TO-DO Pal - SignUp";
         let data = localStorage.getItem('user-info');
+
+        console.log(import.meta.env.VITE_ADMIN_DEV_CODE)
+        console.log(import.meta.env.VITE_ADMIN_UUID_CODE)
+        
         if (data) {
           router.push({ name: 'Notes' }).then(() => {
             setTimeout(() => {
@@ -180,7 +186,7 @@ export default {
             const hasNumber = /[0-9]/.test(password);
             const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
-            if (password === "111") {
+            if (password === "111") { //for dev purpose
                 return "Password is strong.";
             } else if (password.length < minLength) {
                 return "Password must be at least 8 characters long.";
