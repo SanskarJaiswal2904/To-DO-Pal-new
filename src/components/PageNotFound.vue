@@ -1,7 +1,8 @@
 <template>
     <div class="not-found-container">
+      <img src="../assets/notfound_image.png" alt="forbidden.png" height="350">
       <h1>404 - Page Not Found</h1>
-      <p>Sorry, the page you are looking for does not exist.</p>
+      <p>Sorry, the page you are looking for might be moved, renamed or might never existed.</p>
       <div class="text-white2">
         <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html">
             <i class="fas fa-link"></i> Contact Sanskar

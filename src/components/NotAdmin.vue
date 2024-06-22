@@ -1,5 +1,6 @@
 <template>
 <div class="not-found-container">
+    <img src="../assets/forbidden_image.png" alt="forbidden.png" height="250px">
     <h1>403 - Forbidden</h1>
     <p>Sorry, you don't have permission to access this page.</p>
     <p>Contact owner of the App.</p>

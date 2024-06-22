@@ -144,8 +144,8 @@ export default {
         const printEveryModel = () => {
             console.log("Name:", name.value);
             console.log("Email:", email.value);
-            console.log("Password:", password.value);
-            console.log("Confirm Password:", cpassword.value);
+            // console.log("Password:", password.value);
+            // console.log("Confirm Password:", cpassword.value);
             console.log("Gender:", gender.value);
             console.log("Error:", error.value);
             console.log("Is Admin:", isAdmin.value);
@@ -167,8 +167,8 @@ export default {
         document.title = "TO-DO Pal - SignUp";
         let data = localStorage.getItem('user-info');
 
-        console.log(import.meta.env.VITE_ADMIN_DEV_CODE)
-        console.log(import.meta.env.VITE_ADMIN_UUID_CODE)
+        // console.log(import.meta.env.VITE_ADMIN_DEV_CODE)
+        // console.log(import.meta.env.VITE_ADMIN_UUID_CODE)
         
         if (data) {
           router.push({ name: 'Notes' }).then(() => {

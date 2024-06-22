@@ -52,7 +52,7 @@
       });
   
       const handleLogin = async () => {
-        console.log('Email ->', email.value, ', Password ->', password.value);
+        console.log('Email ->', email.value, ', Password ->');
   
         try {
           const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
