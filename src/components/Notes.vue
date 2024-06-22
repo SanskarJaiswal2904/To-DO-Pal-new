@@ -22,7 +22,7 @@
             class="input-field"
             rows="1"
             placeholder="Title"
-            v-model="title"
+            v-model.lazy="title"
             required
           ></textarea>
           <br />
@@ -33,7 +33,7 @@
             class="input-field"
             rows="10"
             placeholder="What you want to do today!"
-            v-model="text"
+            v-model.lazy="text"
             required
           ></textarea>
         </div>

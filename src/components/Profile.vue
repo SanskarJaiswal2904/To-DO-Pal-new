@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label>Name</label>
                 <div class="input-with-icon">
-                    <input type="text" v-model="user.name" :disabled="!editMode" class="disabled">
+                    <input type="text" v-model.lazy="user.name" :disabled="!editMode" class="disabled">
                     <button @click="toggleEditMode" class="edit-button">
                         <i class="fas fa-pen"></i>
                     </button>
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label>Email</label>
                 <div class="input-with-icon">
-                    <input type="email" v-model="user.email" :disabled="!editMode" class="disabled">
+                    <input type="email" v-model.lazy="user.email" :disabled="!editMode" class="disabled">
                     <button @click="toggleEditMode" class="edit-button">
                         <i class="fas fa-pen"></i>
                     </button>
@@ -31,7 +31,7 @@
             <div class="form-group">
                 <label>Gender</label>
                 <div class="input-with-icon">
-                    <select v-model="user.gender" :disabled="!editMode" class="disabled">
+                    <select v-model.lazy="user.gender" :disabled="!editMode" class="disabled">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="others">Others</option>
@@ -46,18 +46,18 @@
             <form @submit.prevent="updateProfile">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" v-model="user.name" required>
+                    <input type="text" id="name" v-model.lazy="user.name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" v-model="user.email" required>
+                    <input type="email" id="email" v-model.lazy="user.email" required>
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <select id="gender" v-model="user.gender" required>
+                    <select id="gender" v-model.lazy="user.gender" required>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="others">Others</option>
                     </select>
                 </div>
                 <button type="submit">Update</button>
@@ -79,6 +79,9 @@ import Navbar from './Navbar.vue';
 import Footer from './Footer.vue';
 import router from '@/routes';
 import Skeleton_Profile from '@/skeleton/Skeleton_Profile.vue';
+import { useTaskStore } from '@/store/TaskStore';
+
+const TaskStore = useTaskStore();
 
 const user = ref({
     _id: '',
@@ -95,8 +98,21 @@ onMounted(() => {
     document.title = "TO-DO Pal - Profile";
     isLoading.value = true;
     const userData = localStorage.getItem('user-info');
+
     if (userData) {
-        userInfo.value = JSON.parse(userData); // Parse the user info from localStorage
+        const parsedData = JSON.parse(userData);
+        userInfo.value = parsedData // Parse the user info from localStorage
+        user.value._id = parsedData._id.$oid;
+        user.value.name = parsedData.name;
+        user.value.email = parsedData.email;
+        user.value.gender = parsedData.gender;
+        // user.value = userStore;
+        console.log("userdata",userData)
+        console.log("userInfo",userInfo.value)
+        console.log("user",user)
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 750);
     } else {
         router.push({
             name: 'SignIn'
@@ -106,23 +122,6 @@ onMounted(() => {
             }, 0);
         });
     }
-
-    console.log("userdata",userData)
-    console.log("userInfo",userInfo.value)
-
-    if (userData) {
-        const parsedData = JSON.parse(userData);
-        user.value._id = parsedData._id.$oid;
-        user.value.name = parsedData.name;
-        user.value.email = parsedData.email;
-        user.value.gender = parsedData.gender;
-    }
-    console.log("userdata",userData)
-    console.log("user",user)
-    setTimeout(() => {
-        
-        isLoading.value = false;
-    }, 750);
 });
 
 const updateProfile = async () => {
@@ -143,9 +142,13 @@ const updateProfile = async () => {
 
         if (response.status === 200) {
             isLoading.value = false;
-            // localStorage.clear();
+            TaskStore.setUserInfo = response.data;
+
+            //store correct data in local-storage
+            updateLocalStorage();
+            
             console.log('Profile updated successfully:', response.data);
-            // localStorage.setItem('user-info', JSON.stringify(user.value));
+            
         } else {
             isLoading.value = false;
             console.error('Error updating profile:', response.data);
@@ -156,6 +159,29 @@ const updateProfile = async () => {
     }
     toggleEditMode();
 };
+
+const updateLocalStorage = () => {
+    let userInfo = localStorage.getItem('user-info');
+
+    // Check if user-info exists in local storage
+    if (userInfo) {
+    // Parse the JSON string into an object
+    userInfo = JSON.parse(userInfo);
+
+    // Update the relevant properties
+    userInfo.name = user.value.name;
+    userInfo.email = user.value.email;
+    userInfo.gender = user.value.gender;
+
+    // Convert the updated object back to a JSON string
+    const updatedUserInfo = JSON.stringify(userInfo);
+
+    // Save the updated JSON string back to local storage
+    localStorage.setItem('user-info', updatedUserInfo);
+    } else {
+    console.error('user-info not found in local storage');
+    }
+}
 
 const toggleEditMode = () => {
     editMode.value = !editMode.value;

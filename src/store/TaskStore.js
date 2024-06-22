@@ -7,7 +7,6 @@ export const useTaskStore = defineStore('userInfo', {
       _id: '',
       name: '',
       email: '',
-      password: '',
       gender: '',
       isAdmin: false
     }
@@ -21,7 +20,6 @@ export const useTaskStore = defineStore('userInfo', {
       console.log(state.user),
       console.log(state.user.name),
       console.log(state.user.email),
-      console.log(state.user.password),
       console.log(state.user.gender),
       console.log(state.user.isAdmin)
     }
@@ -33,7 +31,6 @@ export const useTaskStore = defineStore('userInfo', {
         _id: user._id.$oid, 
         name: user.name,
         email: user.email,
-        password: user.password,
         gender: user.gender,
         isAdmin: user.isAdmin
       };
@@ -44,7 +41,6 @@ export const useTaskStore = defineStore('userInfo', {
         _id: '',
         name: '',
         email: '',
-        password: '',
         gender: '',
         isAdmin: false
       };

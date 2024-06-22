@@ -26,7 +26,7 @@
       </div>
       <div class="item2">
         <form class="nav-search-form" @submit.prevent="emitSearch">
-          <input type="text" placeholder="Search..." v-model="searchTerm">
+          <input type="text" placeholder="Search..." v-model.lazy.trim="searchTerm">
           <button type="submit">Search</button>
         </form>
         <li class="nav-item nav-link logoutClass" v-on:click="logout">
@@ -38,19 +38,22 @@
 </template>
 
 <script setup>
+import { useTaskStore } from '@/store/TaskStore';
 import { ref } from 'vue';
 import { defineEmits } from 'vue';
 
+const TaskStore = useTaskStore();
 const emit = defineEmits(['search']);
 const searchTerm = ref('');
 
 const emitSearch = () => {
-  searchTerm.value = searchTerm.value.trim();
+  // searchTerm.value = searchTerm.value.trim();
   console.log("Emitting search term:", searchTerm.value);
   emit('search', searchTerm.value);
 };
 
 const logout = () => {
+  TaskStore.logOut();
   console.log("Logging out");
   localStorage.clear();
   window.location.reload();

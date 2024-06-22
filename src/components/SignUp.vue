@@ -6,49 +6,49 @@
     <h1>Sign Up </h1>
     <form @submit.prevent="handleSignUp">
         <label for="name" name="Name">Name</label>
-        <input type="text" placeholder="Enter your Name" v-model="name" name="name" class="input-field" required>
+        <input type="text" placeholder="Enter your Name" v-model.lazy="name" name="name" class="input-field" required>
         <br><br>
         <label for="email" name="Email">Email</label>
-        <input type="email" placeholder="Enter your Email" v-model="email" name="email" class="input-field" required>
+        <input type="email" placeholder="Enter your Email" v-model.lazy="email" name="email" class="input-field" required>
         <br><br>
 
         <label for="password" name="password">Password</label>
         <div class="password-container">
-            <input type="password" placeholder="Enter your Password" v-model="password" name="password" class="input-field" required>
+            <input type="password" placeholder="Enter your Password" v-model.lazy="password" name="password" class="input-field" required>
             <span class="info-button" v-tooltip.top="'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'">i</span>
         </div>
 
         <br><br>
         <label for="cpassword" name="cpassword">Confirm Password</label>
-        <input type="password" placeholder="Confirm Password" v-model="cpassword" name="cpassword" class="input-field" required>
+        <input type="password" placeholder="Confirm Password" v-model.lazy="cpassword" name="cpassword" class="input-field" required>
 
         <br><br>
         <label>
-            <input type="checkbox" v-model="isAdmin" />
+            <input type="checkbox" v-model.lazy="isAdmin" />
             Are you an Admin?
         </label>
         <br><br>
 
         <label for="adminCode" name="adminCode" v-if="isAdmin">Admin UUID Code
-            <input type="text" placeholder="Admin code is 12345 (Dev_purpose)" v-model="adminCode" name="adminCode" class="input-field" required>
+            <input type="text" placeholder="Admin code is 12345 (Dev_Purpose)" v-model.lazy="adminCode" name="adminCode" class="input-field" required>
         </label>
 
         <h3>Gender:</h3>
         <br>
         <div class="radioGender">
             <span class="radioGenderSub">
-                <input type="radio" id="male" name="gender" value="male" v-model="gender" required>
+                <input type="radio" id="male" name="gender" value="male" v-model.lazy="gender" required>
                 {{ "   " }}
                 <label for="male">Male</label>
             </span>
             <span class="radioGenderSub">
-                <input type="radio" id="female" name="gender" value="female" v-model="gender" required>
+                <input type="radio" id="female" name="gender" value="female" v-model.lazy="gender" required>
                 {{ "   " }}
                 <label for="female">Female</label>
             </span>
 
             <span class="radioGenderSub">
-                <input type="radio" id="others" name="gender" value="others" v-model="gender" required>
+                <input type="radio" id="others" name="gender" value="others" v-model.lazy="gender" required>
                 {{ "   " }}
                 <label for="others">Others</label>
             </span>
@@ -177,6 +177,7 @@ export default {
             }, 1);
           });
         }
+        
       });
 
         const isPasswordStrong = (password) => {

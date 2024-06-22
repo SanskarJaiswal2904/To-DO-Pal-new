@@ -7,10 +7,10 @@
   
       <form @submit.prevent="handleLogin">
         <label for="email" name="Email">Email</label>
-        <input type="email" placeholder="Enter your Email" v-model="email" name="email" class="input-field" required />
+        <input type="email" placeholder="Enter your Email" v-model.lazy="email" name="email" class="input-field" required />
         <br /><br />
         <label for="password" name="password">Password</label>
-        <input type="password" placeholder="Enter your Password" v-model="password" name="password" class="input-field" required />
+        <input type="password" placeholder="Enter your Password" v-model.lazy="password" name="password" class="input-field" required />
         <br /><br />
         <button type="submit" class="login-btn">Login</button>
       </form>
@@ -60,7 +60,7 @@
             password: password.value
           });
           if (response.status === 200) {
-            const user = response.data; // Assuming response.data contains the user info
+            const user = response.data; 
   
             // Save user info to localStorage
             localStorage.setItem('user-info', JSON.stringify(user));
@@ -70,8 +70,8 @@
 
             console.log('User:', user);
             console.log('User:', user._id.$oid);
-            // console.log('User ID:', user._id);
-            // console.log('User Name:', user.name);
+            console.log('User ID:', user._id);
+            console.log('User Name:', user.name);
   
             // Clear form fields
             email.value = '';
