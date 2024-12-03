@@ -59,7 +59,7 @@
         <button type="submit" class="signup-btn">Sign Up</button>
     </form>
 
-    <router-link to="/signin" class="signup-link">
+    <router-link to="/login" class="signup-link">
         <h3>Already have an account? Sign In</h3>
     </router-link>
     <div class="text-white2">
