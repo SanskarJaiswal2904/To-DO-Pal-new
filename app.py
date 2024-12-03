@@ -267,7 +267,7 @@ def home():
 
 @app.errorhandler(404)
 def not_found(e):
-    return jsonify({"error": "Not found"}), 404
+    return jsonify({"error": "Not found - Custom"}), 404
 
 
 
