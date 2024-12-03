@@ -10,7 +10,6 @@ from bson.json_util import dumps
 import bcrypt  # Import bcrypt for password hashing
 import os
 from dotenv import load_dotenv
-from flask import make_response
 
 
 
@@ -53,15 +52,6 @@ def validate_user_data(data):
     if data.get('gender') not in ["male", "female", "others"]:
         errors['gender'] = "Gender must be 'male', 'female', or 'others'."
     return errors
-
-
-@app.after_request
-def add_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'https://to-do-pal-new.vercel.app'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    return response
-
 
 # createSignup
 @app.route("/signup", methods=["POST"])
