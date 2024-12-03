@@ -10,6 +10,8 @@ from bson.json_util import dumps
 import bcrypt  # Import bcrypt for password hashing
 import os
 from dotenv import load_dotenv
+import logging
+
 
 
 app = Flask(__name__)
@@ -48,7 +50,7 @@ def validate_user_data(data):
     if data.get('gender') not in ["male", "female", "others"]:
         errors['gender'] = "Gender must be 'male', 'female', or 'others'."
     return errors
-#
+
 # createSignup
 @app.route("/signup", methods=["POST"])
 def insertDB():
@@ -263,6 +265,17 @@ def test():
 @app.route('/')
 def home():
     return "Backend is live!"
+
+
+logging.basicConfig(level=logging.DEBUG)
+
+@app.before_request
+def log_request():
+    app.logger.debug(f"Request method: {request.method}")
+    app.logger.debug(f"Request path: {request.path}")
+    app.logger.debug(f"Request headers: {request.headers}")
+    app.logger.debug(f"Request data: {request.get_json()}")
+
 
 
 @app.errorhandler(404)
