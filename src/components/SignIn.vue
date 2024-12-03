@@ -56,10 +56,18 @@
         console.log('Email ->', email.value, ', Password ->');
   
         try {
-          const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
+          const response = await axios.post(
+          `${import.meta.env.VITE_API_URL}/login`,
+          {
             email: email.value,
-            password: password.value
-          });
+            password: password.value,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json', // Explicitly set JSON header
+            },
+          }
+        );
           if (response.status === 200) {
             const user = response.data; 
   
