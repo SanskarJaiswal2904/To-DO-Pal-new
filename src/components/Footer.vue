@@ -18,7 +18,7 @@
                   <i class="fa-brands fa-html5" title="HTML5" style="color: #E34F26; margin-left: 20px;"></i>
                   <i class="fa-brands fa-css3" title="CSS3" style="color: #1572B6;"></i>
                   <i class="fa-brands fa-js" title="JavaScript (ES6+)" style="color: #F7DF1E;"></i>
-                  <i class="fa-brands fa-python" title="Python" style="background: linear-gradient(45deg, #306998, #FFD43B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                  <i class="fa-brands fa-python" title="Python (Flask)" style="background: linear-gradient(45deg, #306998, #FFD43B); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
                   <i class="fa-brands fa-vuejs" title="Vue.js" style="color: #42B883;"></i>
                   <i class="fa-solid fa-leaf" title="MongoDB" style="color: #47A248;"></i>
                 </div>

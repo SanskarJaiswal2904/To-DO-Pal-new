@@ -16,7 +16,7 @@ app = Flask(__name__)
 # CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app"]}})  # Allow requests from your Vue app's origin
 
 # CORS(app, resources={r"/*": {"origins": ["http://localhost:5173"]}})
-CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app", "http://localhost:5173"]}})
+CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app/", "http://localhost:5173"]}})
 
 # Load environment variables from .env file
 load_dotenv()
