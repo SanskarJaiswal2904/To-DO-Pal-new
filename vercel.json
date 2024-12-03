@@ -1,9 +1,35 @@
 {
-    "rewrites": [
-      {
-        "source": "/login",
-        "destination": "https://to-do-pal-new.onrender.com/login"
-      }
-    ]
-  }
-  
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/login",
+      "destination": "https://to-do-pal-new.onrender.com/login"
+    },
+    {
+      "source": "/signup",
+      "destination": "https://to-do-pal-new.onrender.com/signup"
+    },
+    {
+      "source": "/profile",
+      "destination": "https://to-do-pal-new.onrender.com/profile"
+    },
+    {
+      "source": "/admin",
+      "destination": "https://to-do-pal-new.onrender.com/admin"
+    },
+    {
+      "source": "/notadmin",
+      "destination": "https://to-do-pal-new.onrender.com/notadmin"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ]
+}
