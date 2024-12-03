@@ -8,6 +8,9 @@ from bson import ObjectId
 import datetime
 from bson.json_util import dumps
 import bcrypt  # Import bcrypt for password hashing
+import os
+from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 # CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app"]}})  # Allow requests from your Vue app's origin
@@ -15,10 +18,15 @@ app = Flask(__name__)
 # CORS(app, resources={r"/*": {"origins": ["http://localhost:5173"]}})
 CORS(app, resources={r"/*": {"origins": ["https://to-do-pal-new.vercel.app", "http://localhost:5173"]}})
 
+# Load environment variables from .env file
+load_dotenv()
 
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/newtodopal"
+# app.config["MONGO_URI"] = "mongodb://localhost:27017/newtodopal"
 # app.config["MONGO_URI"] = "mongodb+srv://sanskarjaiswal2904:cLT81iq89uVmnBrP@todo.7w890j6.mongodb.net/newtodopal"
+# app.config["MONGO_URI"] = "mongodb+srv://sanskarjaiswal2904:cLT81iq89uVmnBrP@todo.7w890j6.mongodb.net/newtodopal?retryWrites=true&w=majority&appName=todo"
+
 
 
 db = PyMongo(app).db
@@ -249,4 +257,4 @@ def update_one_note(sno):
         return jsonify({"error": f"No note found with ID {sno}"}), 404
 
 if __name__ == "__main__":
-    app.run(port=1024, debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
