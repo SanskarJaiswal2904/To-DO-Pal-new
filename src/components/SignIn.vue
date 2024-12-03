@@ -53,51 +53,31 @@
       });
   
       const handleLogin = async () => {
-        console.log('Email ->', email.value, ', Password ->');
-  
-        try {
-          const response = await axios.post(
-          `${import.meta.env.VITE_API_URL}/login`,
-          {
-            email: email.value,
-            password: password.value,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json', // Explicitly set JSON header
-            },
-          }
-        );
-          if (response.status === 200) {
-            const user = response.data; 
-  
-            // Save user info to localStorage
-            localStorage.setItem('user-info', JSON.stringify(user));
-  
-            // Update Pinia store
-            TaskStore.logIn(user);
+  try {
+    const response = await axios.post(
+      'https://to-do-pal-new.onrender.com/login', // Explicitly use the backend URL
+      {
+        email: email.value,
+        password: password.value,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (response.status === 200) {
+      const user = response.data;
+      localStorage.setItem('user-info', JSON.stringify(user));
+      TaskStore.logIn(user);
+      router.push({ name: 'Notes' });
+    }
+  } catch (error) {
+    console.error(error);
+    alert(error.response?.data?.error || 'An error occurred');
+  }
+};
 
-            console.log('User:', user);
-            console.log('User:', user._id.$oid);
-            console.log('User ID:', user._id);
-            console.log('User Name:', user.name);
-  
-            // Clear form fields
-            email.value = '';
-            password.value = '';
-  
-            // Redirect the user to the desired page
-            router.push({ name: 'Notes' }).then(() => {
-              setTimeout(() => {
-                location.reload();
-              }, 1);
-            });
-          }
-        } catch (error) {
-          alert(error.response.data.error);
-          console.error(error);
-        }
-      };
   
       return {
         email,
