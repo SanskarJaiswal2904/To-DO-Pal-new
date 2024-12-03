@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      {
+        "source": "/login",
+        "destination": "https://to-do-pal-new.onrender.com/login"
+      }
+    ]
+  }
+  
