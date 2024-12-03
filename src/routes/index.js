@@ -12,7 +12,7 @@ import NotAdmin from "@/components/NotAdmin.vue";
 const routes = [
     {
     name:'SignIn',
-    path:'/signin',
+    path:'/login',
     component:SignIn
     },
     {
