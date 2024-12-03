@@ -12,7 +12,7 @@
         <div class="mb-3">
 
           <p id="greeting" style="font-size: 34px; font-weight: bold; background: linear-gradient(to right, green, red);
- -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; color: transparent; border-radius: 5px; text-align: left; margin-bottom: 10px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Hi, {{username}} !!</p>
+ -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; color: transparent; border-radius: 5px; text-align: left; margin-bottom: 10px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Hi, {{username}}  <i class="fa-regular fa-face-smile"></i> !!</p>
 
           <br/>
           <h2 class="input-feild-title-style-exc">Add Notes to Save:</h2>
