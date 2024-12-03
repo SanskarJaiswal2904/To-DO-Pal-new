@@ -3,54 +3,54 @@
     <div class="image-container">
         <img src="../assets/todopalLogo.png" alt="Website Logo" width="200px" class="centered-image">
     </div>
-    <h1>Sign Up </h1>
+    <h1 class="main-header">Sign Up </h1>
     <form @submit.prevent="handleSignUp">
-        <label for="name" name="Name">Name</label>
+        <label for="name" name="Name" class="input-feild-title-style">Name</label>
         <input type="text" placeholder="Enter your Name" v-model.lazy="name" name="name" class="input-field" required>
         <br><br>
-        <label for="email" name="Email">Email</label>
+        <label for="email" name="Email" class="input-feild-title-style">Email</label>
         <input type="email" placeholder="Enter your Email" v-model.lazy="email" name="email" class="input-field" required>
         <br><br>
 
-        <label for="password" name="password">Password</label>
+        <label for="password" name="password" class="input-feild-title-style">Password</label>
         <div class="password-container">
-            <input type="password" placeholder="Enter your Password" v-model.lazy="password" name="password" class="input-field" required>
-            <span class="info-button" v-tooltip.top="'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.'">i</span>
+            <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required>
+            <span class="info-button" title="Password must be 8+ characters, with an uppercase letter, a lowercase letter, a number, and a special character.">i</span>
         </div>
 
         <br><br>
-        <label for="cpassword" name="cpassword">Confirm Password</label>
-        <input type="password" placeholder="Confirm Password" v-model.lazy="cpassword" name="cpassword" class="input-field" required>
+        <label for="cpassword" name="cpassword" class="input-feild-title-style">Confirm Password</label>
+        <input type="password" placeholder="Confirm Password" autocomplete="off" v-model.lazy="cpassword" name="cpassword" class="input-field" required>
 
         <br><br>
-        <label>
-            <input type="checkbox" v-model.lazy="isAdmin" />
+        <label class="input-feild-title-style-exc">
+            <input type="checkbox" v-model.lazy="isAdmin"/>
             Are you an Admin?
         </label>
         <br><br>
 
-        <label for="adminCode" name="adminCode" v-if="isAdmin">Admin UUID Code
-            <input type="text" placeholder="Admin code is 12345 (Dev_Purpose)" v-model.lazy="adminCode" name="adminCode" class="input-field" required>
+        <label for="adminCode" name="adminCode" v-if="isAdmin" class="input-feild-title-style">Admin UUID Code
+            <input type="text" placeholder="Admin UUID code is 12345 (For Development Purposes)" autocomplete="off" v-model.lazy="adminCode" name="adminCode" class="input-field"  required>
         </label>
 
-        <h3>Gender:</h3>
+        <h3 class="input-feild-title-style-bold">Gender:</h3>
         <br>
         <div class="radioGender">
             <span class="radioGenderSub">
                 <input type="radio" id="male" name="gender" value="male" v-model.lazy="gender" required>
                 {{ "   " }}
-                <label for="male">Male</label>
+                <label for="male" class="input-feild-title-style-exc">Male</label>
             </span>
             <span class="radioGenderSub">
                 <input type="radio" id="female" name="gender" value="female" v-model.lazy="gender" required>
                 {{ "   " }}
-                <label for="female">Female</label>
+                <label for="female" class="input-feild-title-style-exc">Female</label>
             </span>
 
             <span class="radioGenderSub">
                 <input type="radio" id="others" name="gender" value="others" v-model.lazy="gender" required>
                 {{ "   " }}
-                <label for="others">Others</label>
+                <label for="others" class="input-feild-title-style-exc">Others</label>
             </span>
         </div>
         <br><br>
@@ -63,8 +63,9 @@
         <h3>Already have an account? Sign In</h3>
     </router-link>
     <div class="text-white2">
-        <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html">
-            <i class="fas fa-link"></i> Made By Sanskar
+        <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html" style="margin-bottom: 10px; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; transition: all 0.3s ease;">
+            <i class="fas fa-link" style="margin-right: 8px; font-size: 1.5rem;"></i> 
+            Made By Sanskar
         </a>
     </div>
 </div>
@@ -220,15 +221,31 @@ export default {
 </script>
 
 <style scoped>
-.text-white2 {
-    text-align: center;
-    text-decoration: none;
-    font-weight: 900;
-    font-size: large;
-    color: purple;
-    margin-top: 5px;
-
+.main-header {
+    font-family: sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+.input-feild-title-style-bold{
+  font-family: "Playwrite IT Moderna", cursive;
+  font-weight: 700;
+  font-style: normal;
+  margin-top: 15px;
 }
+
+.input-feild-title-style-exc{
+    font-family: "Trocchi", serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.input-feild-title-style{
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
 
 .image-container {
     text-align: center;
@@ -298,17 +315,22 @@ form {
 
 .signup-btn {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 12px;
+    background: linear-gradient(to right, #6a11cb, #2575fc, #ff41f9);
     color: #fff;
+    font-size: 1.2rem; /* Larger text */
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .signup-btn:hover {
-    background-color: #0056b3;
-}
+    background: linear-gradient(to right, #3e026e, #1d4ed8, #ff0080);
+    transform: scale(1.05); /* Slight scale-up effect */
+    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3); /* Soft shadow for depth */
+  }
+
 
 .signup-link {
     text-align: center;
@@ -320,4 +342,31 @@ form {
 body {
     background-color: #f7f7f7;
 }
+
+.text-white2 {
+    font-size: 1.2rem; 
+    font-weight: bold;
+    color: rgba(0, 43, 151, 0.86);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .text-white2:hover {
+    color: linear-gradient(to right, purple, pink); /* Gradient background */
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  }
+  
+  .text-white2 i {
+    margin-right: 8px; /* Space between the icon and text */
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .text-white2:hover i {
+    transform: rotate(15deg); /* Icon rotation on hover */
+  }
 </style>

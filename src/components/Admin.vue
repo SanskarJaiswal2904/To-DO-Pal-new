@@ -233,7 +233,7 @@ button.delete-btn:hover {
       <div class="admin-panel">
         <div v-if="loading" class="loading">Loading...</div>
         <div v-else>
-          <h1>Users</h1>
+          <h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 2rem; font-weight:bold; color: #333; margin-bottom: 10px;">Users</h1>
           <ul>
             <li v-for="user in users" :key="user._id" class="user-card" :title="user._id">
               <strong>Name: {{ user.name }}</strong>
@@ -349,15 +349,15 @@ button {
 
 /* Delete Button Styles */
 button.delete-btn {
-  background-color: white;
-  color: red;
-  border: 1px solid #dc3545;
+  background-color: rgb(248, 228, 228);
+    color: red;
+    border: 1px solid red;
 }
 
 button.delete-btn:hover {
-  background-color: #dc3545;
-  border-color: #c82333;
-  color: white;
+  background-color: red;
+    color: white;
+    border: 1px solid red;
   box-shadow: 0 0 10px rgba(200, 35, 51, 0.3);
 }
 

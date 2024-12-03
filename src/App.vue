@@ -19,7 +19,7 @@ export default defineComponent({
 <!-- background: linear-gradient(to left, #1f1f1f, #ffffff); -->
 <style scoped>
 *{
-  background: linear-gradient(to right, #ffa088, #fce942);
+  background: linear-gradient(to right, #ff7e5f, #feb47b, #ffcc33, #fddb92);
 }
 
 </style>

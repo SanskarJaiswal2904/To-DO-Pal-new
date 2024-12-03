@@ -1,8 +1,8 @@
 <template>
-    <div class="table-container">
+    <div class="table-container" style="font-size: 20px; color: #333;">
         <div class="flexitems">
             <h2>Notes</h2>
-            <button class="action-btn bigClass" @click="deleteEveryNote">
+            <button class="action-btn bigClass" @click="deleteEveryNote" title="Delete All">
                 <i class="fas fa-trash-alt"></i> Delete All
             </button>
         </div>
@@ -20,7 +20,7 @@
                 <tr v-for="item in items" :key="item" class="note-card" :title="item._id.$oid">
                     <td>
                         <label for="done">
-                            <input type="checkbox" name="done" :checked="item.isCompleted" @click="() => taskdone(item)">
+                            <input type="checkbox" name="done" :checked="item.isCompleted" :title="item.isCompleted ? 'Task done' : 'Task not done'" @click="() => taskdone(item)">
                         </label>
                     </td>
     
@@ -28,8 +28,8 @@
                     <td>{{ item.description }}</td>
                     <td>{{ item.datecreated }}</td>
                     <td>
-                        <button class="action-btn delete-btn" @click="deleteOne(item._id)"><i class="fas fa-trash-alt"></i> Delete</button>
-                        <button class="action-btn update-btn" @click="showUpdateForm(item)"><i class="fas fa-pencil-alt"></i> Update</button>
+                        <button class="action-btn delete-btn" @click="deleteOne(item._id)" title="Delete"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <button class="action-btn update-btn" @click="showUpdateForm(item)" title="Update"><i class="fas fa-pencil-alt"></i> Update</button>
                     </td>
                 </tr>
             </tbody>
@@ -39,19 +39,19 @@
         <div v-if="showModal" class="modal">
             <div class="modal-content">
                 <span class="close" @click="closeModal">&times;</span>
-                <h2>Update Note</h2>
+                <h2 class="input-feild-title-style-exc">Update Note</h2>
                 <form @submit.prevent="updateNote">
                     <div class="form-group">
-                        <label for="title">Title</label>
+                        <label for="title" class="input-feild-title-style">Title</label>
                         <input type="text" id="title" v-model="currentNote.title" required>
                     </div>
     
                     <div class="form-group">
-                        <label for="description">Description</label>
+                        <label for="description" class="input-feild-title-style">Description</label>
                         <textarea id="description" v-model="currentNote.description" rows="4" required></textarea>
                     </div>
     
-                    <button type="submit" class="action-btn save-btn">Save</button>
+                    <button type="submit" class="action-btn save-btn" title="Save">Save</button>
                 </form>
             </div>
         </div>
@@ -81,7 +81,7 @@
     });
     
     const deleteEveryNote = async () => {
-      const confirmed = confirm("Are you sure you want to delete all notes?");
+      const confirmed = confirm("Are you sure you want to delete all the notes?");
       if (!confirmed) {
         return;
       }
@@ -145,6 +145,25 @@
 
   
 <style scoped>
+.input-feild-title-style-italic{
+  font-family: "Playwrite IT Moderna", cursive;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.input-feild-title-style-exc{
+    font-family: "Trocchi", serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.input-feild-title-style{
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 400;
+    margin-top: 10px;
+    font-style: normal;
+}
+
 /* Custom styling for checkboxes */
 input[type="checkbox"] {
     appearance: none;
@@ -229,6 +248,7 @@ input[type="checkbox"] {
 .table-container {
     width: 90vw;
     margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .custom-table {
@@ -242,21 +262,21 @@ input[type="checkbox"] {
     border: 1px solid #ddd;
     padding: 12px;
     text-align: left;
-    word-wrap: break-word; /* Add word-wrap property */
+    word-wrap: break-word;
 }
 
 .custom-table th {
-    background-color: #ef7d03;
+    background: linear-gradient(to right, #ef7d03, #f78b3e);
     color: #333;
     font-weight: bold;
 }
 
 .custom-table tr {
-    background-color: #ffbd76;
+    background: linear-gradient(to right, #ffaf58, #ffbc60);
 }
 
 .custom-table tr:hover {
-    background-color: #c6c4c4;
+    background: linear-gradient(to right, #c6c4c4, #d1d1d1);
 }
 
 .action-btn {
@@ -268,25 +288,27 @@ input[type="checkbox"] {
 }
 
 .delete-btn {
-    background-color: #ff5757;
-    color: #fff;
-    margin-right: 8px;
-    border-radius: 8px;
+  background: linear-gradient(to left, #ff5757, #ff6f6f);
+  color: #fff;
+  margin-right: 8px;
+  border-radius: 8px;
 }
 
 .delete-btn:hover {
-    background-color: #f03737;
+  background: linear-gradient(to right, #f03737, #f44336);
 }
 
+
 .update-btn {
-    background-color: #4caf50;
-    color: #fff;
-    border-radius: 8px;
+  background: linear-gradient(to left, #4caf50, #7be480);
+  color: #fff;
+  border-radius: 8px;
 }
 
 .update-btn:hover {
-    background-color: #43a047;
+  background: linear-gradient(to right, #43a047, #81c784);
 }
+
 
 .modal {
     display: block;
@@ -302,12 +324,13 @@ input[type="checkbox"] {
 }
 
 .modal-content {
-  background-color: #fffdc2;
+  background: linear-gradient(to right, #fffdc2, #fff9a1);
   margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
 }
+
 
 .close {
     color: #aaa;
@@ -324,14 +347,15 @@ input[type="checkbox"] {
 }
 
 .save-btn {
-    background-color: #4caf50;
-    color: #fff;
-    border-radius: 8px;
+  background: linear-gradient(to right, #4caf50, #66bb6a);
+  color: #fff;
+  border-radius: 8px;
 }
 
 .save-btn:hover {
-    background-color: #43a047;
+  background: linear-gradient(to right, #43a047, #81c784);
 }
+
 
 .form-group {
     margin-bottom: 20px;
@@ -372,15 +396,14 @@ input[type="checkbox"] {
 }
 
 .modal-content {
-    background-color: #fffdc2;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Add box shadow for depth */
-    max-width: 500px;
-    /* Limit the width of the modal content */
+  background: linear-gradient(to right, #fffdc2, #fff9a1);
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
 }
+
 
 /* Close button styles */
 .close {

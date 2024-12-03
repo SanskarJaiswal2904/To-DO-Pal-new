@@ -11,12 +11,13 @@
       <div class="container my-3">
         <div class="mb-3">
 
-          <p style="font-size: 34px; font-weight: bold; background: linear-gradient(to right, #4CAF50, #2196F3); -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; color: transparent; border-radius: 5px; text-align: left; margin-bottom: 10px;">Hi, {{username}}</p>
+          <p id="greeting" style="font-size: 34px; font-weight: bold; background: linear-gradient(to right, green, red);
+ -webkit-background-clip: text; -moz-background-clip: text; background-clip: text; color: transparent; border-radius: 5px; text-align: left; margin-bottom: 10px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Hi, {{username}} !!</p>
 
           <br/>
-          <h2>Add Notes to Save:</h2>
+          <h2 class="input-feild-title-style-exc">Add Notes to Save:</h2>
           <br />
-          <label for="textField" class="form-label">Title</label>
+          <label for="textField" class="form-label input-feild-title-style" >Title</label>
           <br />
           <textarea
             class="input-field"
@@ -27,7 +28,7 @@
           ></textarea>
           <br />
           <br />
-          <label for="textField" class="form-label">Description</label>
+          <label for="textField" class="form-label input-feild-title-style">Description</label>
           <br />
           <textarea
             class="input-field"
@@ -38,19 +39,22 @@
           ></textarea>
         </div>
 
-        <button class="btn save-btn primary-btn" title="To save text" @click="saveText">
+        <div class="buttonsBlue">
+        <button class="btn save-btn primary-btn input-feild-title-style-italic" title="To save text" @click="saveText">
           Save <i class="fas fa-save"></i>
         </button>
-        <button class="btn copy-btn primary-btn" title="To copy text to clipboard" @click="copyText">
+        <button class="btn copy-btn primary-btn input-feild-title-style-italic" title="To copy text to clipboard" @click="copyText">
           Copy to clipboard <i class="fas fa-copy"></i>
         </button>
+      </div>
+      </div>
+    </div>
       </div>
     </div>
     <div class="GettingUser">
       <SingleNote v-if="filteredNotes.length > 0" :items="filteredNotes" :taskdone="taskdone" />
     </div>
-  </div>
-  </div>
+
 <Footer />
 </template>
 
@@ -130,6 +134,7 @@ function formatDate(dateStr) {
 
 onMounted(async () => {
   document.title = "TO-DO Pal - Home";
+  
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
   if (data) {
@@ -142,8 +147,7 @@ onMounted(async () => {
     });
   }
 
-  username.value = userInfo.value.name;
-
+  username.value = userInfo.value.name.split(' ')[0]; // take only first part of the name
 
   try {
     isLoading.value = true;
@@ -209,10 +213,33 @@ const copyText = () => {
     }, 200);
   }
 };
+
+
 </script>
 
 
 <style scoped>
+.buttonsBlue{
+  margin-bottom: 10px;
+
+}
+.input-feild-title-style-italic{
+  font-family: "Playwrite IT Moderna", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.input-feild-title-style-exc{
+    font-family: "Trocchi", serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.input-feild-title-style{
+    font-family: "IBM Plex Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+}
 textarea {
   width: 100%;
   padding: 15px 20px;
@@ -282,17 +309,24 @@ body {
 }
 
 .primary-btn {
-  background-color: white;
-  color: blue;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid #007bff;
+  background-color: #f3f4f6; /* Light gray background for a modern look */
+  color: #4A90E2; /* Soft blue for text */
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #4A90E2;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .primary-btn:hover {
-  background-color: blue;
-  color: white;
+  background-color: #4A90E2; /* Vibrant blue for hover */
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.05); /* Lift effect */
+  box-shadow: 0 8px 20px rgba(74, 144, 226, 0.4); /* Glow shadow */
 }
+
 
 .delete-btn {
   border: 1px solid red;

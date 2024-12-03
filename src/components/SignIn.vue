@@ -3,14 +3,14 @@
       <div class="image-container">
         <img src="../assets/todopalLogo.png" alt="Website Logo" width="200px" class="centered-image">
       </div>
-      <h1>Login</h1>
+      <h1 class="main-header">Login</h1>
   
       <form @submit.prevent="handleLogin">
-        <label for="email" name="Email">Email</label>
+        <label for="email" name="Email" class="input-feild-title-style">Email</label>
         <input type="email" placeholder="Enter your Email" v-model.lazy="email" name="email" class="input-field" required />
         <br /><br />
-        <label for="password" name="password">Password</label>
-        <input type="password" placeholder="Enter your Password" v-model.lazy="password" name="password" class="input-field" required />
+        <label for="password" name="password" class="input-feild-title-style">Password</label>
+        <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required />
         <br /><br />
         <button type="submit" class="login-btn">Login</button>
       </form>
@@ -18,10 +18,11 @@
         <h3>Don't have an account? Sign Up</h3>
       </router-link>
       <div class="text-white2">
-        <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html">
-          <i class="fas fa-link"></i> Made By Sanskar
+        <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html" style="margin-bottom: 10px; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; transition: all 0.3s ease;">
+            <i class="fas fa-link" style="margin-right: 8px; font-size: 1.5rem;"></i> 
+            Made By Sanskar
         </a>
-      </div>
+    </div>
     </div>
   </template>
   
@@ -101,19 +102,47 @@
   
 
 <style scoped>
-.allclassparent {
-    height: 100vh;
-
+.main-header {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.input-feild-title-style{
+  font-family: "IBM Plex Serif", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.text-white2 {
-    text-align: center;
-    text-decoration: none;
-    font-weight: 900;
-    font-size: large;
-    color: purple;
-    margin-top: 5px;
+.allclassparent {
+  height: 100vh;
+}
 
+
+.text-white2 {
+  font-size: 1.2rem; 
+  font-weight: bold;
+  color: rgba(0, 43, 151, 0.86);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.text-white2:hover {
+  color: linear-gradient(to right, purple, pink); /* Gradient background */
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.text-white2 i {
+  margin-right: 8px; /* Space between the icon and text */
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.text-white2:hover i {
+  transform: rotate(15deg); /* Icon rotation on hover */
 }
 
 /* Style for the login page */
@@ -156,13 +185,21 @@ form {
 }
 
 .login-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #6a11cb, #2575fc, #ff41f9);
+  color: #fff;
+  font-size: 1.2rem; /* Larger text */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-btn:hover {
+  background: linear-gradient(to right, #3e026e, #1d4ed8, #ff0080);
+  transform: scale(1.05); /* Slight scale-up effect */
+  box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3); /* Soft shadow for depth */
 }
 
 .signup-link {
@@ -172,7 +209,4 @@ form {
     color: blue;
 }
 
-.login-btn:hover {
-    background-color: #0056b3;
-}
 </style>

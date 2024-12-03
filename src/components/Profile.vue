@@ -1,35 +1,37 @@
 <template>
 <div>
     <Navbar />
+    <div class="ParentProfileClass">
     <div class="loading" v-if="isLoading">
         <Skeleton_Profile/>
       </div>
     
       <div class="alreadyLoaded" v-if="!isLoading">
     <div class="profile">
-        <h2>Profile</h2>
+        <h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 2rem; color: #333; margin-bottom: 10px;">Profile</h2>
+
         <br>
         <div v-if="!editMode">
             <div class="form-group">
-                <label>Name</label>
+                <label class="input-feild-title-style">Name</label>
                 <div class="input-with-icon">
                     <input type="text" v-model.lazy="user.name" :disabled="!editMode" class="disabled">
                     <button @click="toggleEditMode" class="edit-button">
-                        <i class="fas fa-pen"></i>
+                        <i class="fas fa-pen" title="Edit Name"></i>
                     </button>
                 </div>
             </div>
             <div class="form-group">
-                <label>Email</label>
+                <label class="input-feild-title-style">Email</label>
                 <div class="input-with-icon">
                     <input type="email" v-model.lazy="user.email" :disabled="!editMode" class="disabled">
                     <button @click="toggleEditMode" class="edit-button">
-                        <i class="fas fa-pen"></i>
+                        <i class="fas fa-pen" title="Edit Email"></i>
                     </button>
                 </div>
             </div>
             <div class="form-group">
-                <label>Gender</label>
+                <label class="input-feild-title-style">Gender</label>
                 <div class="input-with-icon">
                     <select v-model.lazy="user.gender" :disabled="!editMode" class="disabled">
                         <option value="male">Male</option>
@@ -37,7 +39,7 @@
                         <option value="others">Others</option>
                     </select>
                     <button @click="toggleEditMode" class="edit-button">
-                        <i class="fas fa-pen"></i>
+                        <i class="fas fa-pen" title="Edit Gender"></i>
                     </button>
                 </div>
             </div>
@@ -60,12 +62,13 @@
                         <option value="others">Others</option>
                     </select>
                 </div>
-                <button type="submit">Update</button>
+                <button type="submit" title="Update profile">Update</button>
             </form>
         </div>
     </div>
     </div>
     </div>
+</div>
 <Footer />
 </template>
 
@@ -189,12 +192,33 @@ const toggleEditMode = () => {
 </script>
 
 <style scoped>
+.ParentProfileClass{
+    margin: 10px;
+}
+.input-feild-title-style-italic{
+    font-family: "Playwrite IT Moderna", cursive;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .input-feild-title-style-exc{
+      font-family: "Trocchi", serif;
+      font-weight: 200;
+      font-style: normal;
+  }
+  
+  .input-feild-title-style{
+      font-family: "IBM Plex Serif", serif;
+      font-weight: 400;
+      font-style: normal;
+  }
+
 .profile {
     max-width: 600px;
     margin: 0 auto;
     min-height: 70vh;
     padding: 20px;
-    background-color: #f9f9f9;
+    background: linear-gradient(135deg, #ffffff, #c6c5c5 ,#cccbcb); 
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
@@ -240,11 +264,11 @@ select:focus {
     top: 50%;
     right: -10px;
     transform: translateY(-50%);
-    background: none;
+    background: linear-gradient(to right, #1E3A8A, #3B82F6, #ff41f9);
     border: none;
     padding: 0.5rem;
     cursor: pointer;
-    color: #007bff;
+    color: white;
     transition: color 0.3s, background-color 0.3s;
 }
 
@@ -267,12 +291,17 @@ button.edit-button:disabled:hover {
 
 button {
     padding: 0.75rem 1.5rem;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    background: linear-gradient(to right, #1E3A8A, #3B82F6, #ff41f9);
+    transition: background 0.3s ease, transform 0.2s;
 }
+
+button:hover {
+    background: linear-gradient(to left, #ff41f9, #a111b1, #60A5FA);
+}
+
 </style>
