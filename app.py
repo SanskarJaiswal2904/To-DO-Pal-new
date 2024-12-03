@@ -256,5 +256,10 @@ def update_one_note(sno):
     else:
         return jsonify({"error": f"No note found with ID {sno}"}), 404
 
+@app.route('/test')
+def test():
+    return "Test route is working!"
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
