@@ -10,30 +10,36 @@ To-Do-Pal is a task management web application built with a Vue.js frontend, a F
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Signup%201.png" alt="Signup" title="Signup" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Signin%203.png" alt="Signin" title="Signin" width="600" height="800"></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Account%20Created%202.png" alt="Account Created" title="Account Created" width="600" height="800"></td>
   </tr>
   <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Account%20Created%202.png" alt="Account Created" title="Account Created" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Saving%20Note%204.png" alt="Saving Note" title="Saving Note" width="600" height="800"></td>
+  </tr>
+  <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Note%20Saved%205.png" alt="Note Saved" title="Note Saved" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Task%20done%20notdone%206.png" alt="Task Done or Not Done" title="Task Done or Not Done" width="600" height="800"></td>
   </tr>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Update%20Note%207.png" alt="Update Note" title="Update Note" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Saving%20second%20note%208.png" alt="Saving Second Note" title="Saving Second Note" width="600" height="800"></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/note%20saved%209.png" alt="Note Saved Again" title="Note Saved Again" width="600" height="800"></td>
   </tr>
   <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/note%20saved%209.png" alt="Note Saved Again" title="Note Saved Again" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Search%20working%2010.png" alt="Search Working" title="Search Working" width="600" height="800"></td>
+  </tr>
+  <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/about%2011.png" alt="About" title="About" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/profile%2012.png" alt="Profile" title="Profile" width="600" height="800"></td>
   </tr>
   <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/updating%20profile%2013.png" alt="Updating Profile" title="Updating Profile" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/profile%20udated%2014.png" alt="Profile Updated" title="Profile Updated" width="600" height="800"></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/admin%2016.png" alt="Admin" title="Admin" width="600" height="800"></td>
   </tr>
   <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/admin%2016.png" alt="Admin" title="Admin" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/deleting%20user%2017.png" alt="Deleting User" title="Deleting User" width="600" height="800"></td>
+  </tr>
+  <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/user%20deleted%2018.png" alt="User Deleted" title="User Deleted" width="600" height="800"></td>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/404%2019.png" alt="404 Error" title="404 Error" width="600" height="800"></td>
   </tr>
@@ -41,6 +47,7 @@ To-Do-Pal is a task management web application built with a Vue.js frontend, a F
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/403%2020.png" alt="403 Error" title="403 Error" width="600" height="800"></td>
   </tr>
 </table>
+
 
 
 
