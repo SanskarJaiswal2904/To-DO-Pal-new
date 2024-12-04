@@ -7,6 +7,6 @@ To-Do-Pal is a task management web application built with a Vue.js frontend, a F
 ## Layout
 <table>
   <tr>
-    <td align="center"><img src="https://github.com/SanskarJaiswal2904/To-DO-Pal-new/tree/master/Signup 1.png" alt="Signup" title="Signup" width="300" height="500"></td>
+    <td align="center"><img src="https://github.com/SanskarJaiswal2904/To-DO-Pal-new/tree/master/Signup 1.png" alt="Signup" title="Signup"></td>
   </tr>
 </table>
