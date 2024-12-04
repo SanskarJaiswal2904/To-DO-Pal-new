@@ -86,7 +86,9 @@ To-Do-Pal is a task management web application built with a Vue.js frontend, a F
 1. Clone this repository to your local machine.  
 2. Install the required dependencies for both frontend and backend using `npm install` and `pip install`.  
 3. Set up a MongoDB database and update the configuration.  
-4. Run the Flask server and Vue development server to start the application.  
+4. Run the Flask server and Vue development server to start the application.
+5. If you try to visit the '/' page without logging in you would be redirected to SignIn page.
+6. If you are not an admin and try to access the '/admin' page you would be redirected to "403 Forbidden" Page.
 
 ## Usage  
 - Sign up or log in to manage your tasks.  
