@@ -21,9 +21,15 @@
           </router-link>
         </li>
         <li>
-          <router-link class="nav-item nav-link" to="/admin" v-if="userIsAdmin" title="Admin">
+          <router-link
+            class="nav-item nav-link"
+            :class="{ disabled: !userIsAdmin }"
+            :to="userIsAdmin ? '/admin' : '/notadmin'"
+            :title="userIsAdmin ? 'Admin' : 'Access Denied'"
+          >
             <i class="fas fa-user-shield"></i> Admin
           </router-link>
+
         </li>
       </div>
       <div class="item2">
