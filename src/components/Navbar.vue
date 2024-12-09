@@ -26,11 +26,12 @@
             :class="{ disabled: !userIsAdmin }"
             :to="userIsAdmin ? '/admin' : '/notadmin'"
             :title="userIsAdmin ? 'Admin' : 'Access Denied'"
+            :style="!userIsAdmin ? 'color: gray;' : ''"
           >
             <i class="fas fa-user-shield"></i> Admin
           </router-link>
-
         </li>
+        
       </div>
       <div class="item2">
         <form class="nav-search-form" @submit.prevent="emitSearch">
