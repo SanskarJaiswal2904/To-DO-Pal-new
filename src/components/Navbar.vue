@@ -26,8 +26,8 @@
             :class="{ disabled: !userIsAdmin }"
             :to="userIsAdmin ? '/admin' : '/notadmin'"
             :title="userIsAdmin ? 'Admin' : 'Access Denied'"
-            :style="!userIsAdmin ? 'color: gray;' : ''"
-          >
+            :style="!userIsAdmin ? 'color: lightgray;' : ''"
+            >
             <i class="fas fa-user-shield"></i> Admin
           </router-link>
         </li>
