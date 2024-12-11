@@ -23,7 +23,9 @@
                 <tr v-for="item in items" :key="item" class="note-card" :title="item._id.$oid">
                     <td>
                         <label for="done">
-                            <input type="checkbox" name="done" :checked="item.isCompleted" :title="item.isCompleted ? 'Task done' : 'Task not done'" @click="() => taskdone(item)">
+                            <input type="checkbox" name="done" :checked="item.isCompleted"
+                            :title="`CURRENT STATUS: ${item.isCompleted ? 'Task done' : 'Task not done'}`"
+                            @click="() => taskdone(item)">
                         </label>
                     </td>
     
