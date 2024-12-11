@@ -54,12 +54,16 @@ import { useTaskStore } from '@/store/TaskStore';
 import { onMounted, ref } from 'vue';
 import Toast from './Toast.vue';
 import { defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
+
 
 const TaskStore = useTaskStore();
 const emit = defineEmits(['search']);
 const searchTerm = ref('');
 const userInfo = ref({});
 const userIsAdmin = ref(false);
+const router = useRouter();
+
 
 const toastMessage = ref('');
 const toastType = ref('');
@@ -97,12 +101,17 @@ const logout = () => {
   if (confirm("Are you sure you want to log out?")) {
     TaskStore.logOut();
     console.log("Logging out...");
+    router.push({ name: 'Notes' }).then(() => {
+        setTimeout(() => {
+          location.reload();
+        }, 1);
+      });
     //Toast
     updateToast('Logged out Successfully.', 'success', false);
     localStorage.clear();
     setTimeout(() => {
       window.location.reload();
-    }, 1500);
+    }, 1300);
   }
 };
 </script>
