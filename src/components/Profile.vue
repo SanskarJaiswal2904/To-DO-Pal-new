@@ -1,6 +1,8 @@
 <template>
 <div>
     <Navbar />
+    <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
+
     <div class="ParentProfileClass">
     <div class="loading" v-if="isLoading">
         <Skeleton_Profile/>
@@ -83,6 +85,13 @@ import Footer from './Footer.vue';
 import router from '@/routes';
 import Skeleton_Profile from '@/skeleton/Skeleton_Profile.vue';
 import { useTaskStore } from '@/store/TaskStore';
+import Toast from './Toast.vue';
+
+
+const toastMessage = ref('');
+const toastType = ref('');
+const toastPausable = ref(false);
+const toastKey = ref(0);
 
 const TaskStore = useTaskStore();
 
@@ -117,12 +126,15 @@ onMounted(() => {
             isLoading.value = false;
         }, 750);
     } else {
+        //Toast
+        updateToast('Please sign in to continue.', 'info', true);
+
         router.push({
             name: 'SignIn'
         }).then(() => {
             setTimeout(() => {
                 location.reload();
-            }, 0);
+            }, 1300);
         });
     }
 });
@@ -151,17 +163,32 @@ const updateProfile = async () => {
             updateLocalStorage();
             
             console.log('Profile updated successfully:', response.data);
+            //Toast
+            updateToast('Profile updated successfully.', 'success', false);
             
         } else {
             isLoading.value = false;
             console.error('Error updating profile:', response.data);
+            //Toast
+            updateToast('Profile was not updated successfully.', 'error', true);
         }
     } catch (error) {
         isLoading.value = false;
         console.error('Error updating profile:', error);
+        //Toast
+        updateToast('Error updating profile.', 'error', true);
     }
     toggleEditMode();
 };
+
+//Update toast
+const updateToast = (msg, type, pause) => {
+    toastMessage.value = msg;
+    toastType.value = type;
+    toastPausable.value = pause;
+    toastKey.value++; // Increment the key to force re-render
+    console.log('Toast displayed')
+}
 
 const updateLocalStorage = () => {
     let userInfo = localStorage.getItem('user-info');

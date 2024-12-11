@@ -3,6 +3,7 @@
     <img src="../assets/forbidden_image.png" alt="forbidden.png" height="250px">
     <h1>403 - Forbidden</h1>
     <p>Sorry, you don't have permission to access this page.</p>
+    <p>You are not an Admin.</p>
     <p>Contact owner of the App.</p>
     <div class="text-white2">
         <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html" style="margin-bottom: 10px; font-size: 1.2rem; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; transition: all 0.3s ease;">

@@ -1,4 +1,6 @@
 <template>
+  <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
+
     <div class="allclassparent">
       <div class="image-container">
         <img src="../assets/todopalLogo.png" alt="Website Logo" width="200px" class="centered-image">
@@ -12,7 +14,10 @@
         <label for="password" name="password" class="input-feild-title-style">Password</label>
         <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required />
         <br /><br />
-        <button type="submit" class="login-btn">Login</button>
+        <button type="submit" class="login-btn" :disabled="isLoading">
+          <span v-if="isLoading">Logging in...</span>
+          <span v-else>Login</span>
+        </button>
       </form>
       <router-link to="/signup" class="signup-link">
         <h3>Don't have an account? Sign Up</h3>
@@ -26,34 +31,64 @@
     </div>
   </template>
   
-  <script>
+<script setup>
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
   import { useTaskStore } from '../store/TaskStore'; // Adjust the import path as needed
   import axios from 'axios';
+  import Toast from './Toast.vue';
   
-  export default {
-    name: 'SignIn',
-    setup() {
-      const email = ref('');
-      const password = ref('');
-      const router = useRouter();
-      const TaskStore = useTaskStore();
+  // Reactive variables using Composition API
+  const email = ref('');
+  const password = ref('');
+  const isLoading = ref(false);
+
+  const toastMessage = ref('');
+  const toastType = ref('');
+  const toastPausable = ref(false);
+  const toastKey = ref(0);
+
+  const router = useRouter();
+  const TaskStore = useTaskStore();
   
-      onMounted(() => {
-        document.title = "TO-DO Pal - Login";
-        let data = localStorage.getItem('user-info');
-        if (data) {
-          router.push({ name: 'Notes' }).then(() => {
-            setTimeout(() => {
-              location.reload();
-            }, 1);
-          });
-        }
+  // Handle component mounted logic (onMounted lifecycle hook)
+  onMounted(() => {
+    document.title = "TO-DO Pal - Login";
+    const data = localStorage.getItem('user-info');
+
+    //Toast
+    updateToast('Welcome to To-Do Pal.', 'info', true);
+
+    setTimeout(() => {
+      //Toast
+      updateToast('First you need to Signup to access this App.', 'info', true);
+    }, 1300);
+
+
+    if (data) {
+      //Toast
+      updateToast('Already logged in.', 'info', true);
+      router.push({ name: 'Notes' }).then(() => {
+        setTimeout(() => {
+          location.reload();
+        }, 1300);
       });
+    }
+  });
+
+  //Update toast
+  const updateToast = (msg, type, pause) => {
+    toastMessage.value = msg;
+    toastType.value = type;
+    toastPausable.value = pause;
+    toastKey.value++; // Increment the key to force re-render
+    console.log('Toast displayed')
+  }
   
-      const handleLogin = async () => {
+  //Login Handler
+  const handleLogin = async () => {
   try {
+    isLoading.value = true; // Disable the button
     const response = await axios.post(
       'https://to-do-pal-new.onrender.com/login', // Explicitly use the backend URL
       {
@@ -66,29 +101,29 @@
         },
       }
     );
+
     if (response.status === 200) {
       const user = response.data;
       localStorage.setItem('user-info', JSON.stringify(user));
       TaskStore.logIn(user);
-      router.push({ name: 'Notes' });
+
+      // Update toast properties after successful login
+      updateToast('Login successful!', 'success', false);
+
+      setTimeout(() => {
+        router.push({ name: 'Notes' });
+      }, 1500);
     }
   } catch (error) {
     console.error(error);
     alert(error.response?.data?.error || 'An error occurred');
+  } finally {
+    isLoading.value = false; // Enable the button in all cases
   }
-};
-
-  
-      return {
-        email,
-        password,
-        handleLogin
-      };
-    }
   };
+
   </script>
   
-
 <style scoped>
 .main-header {
   font-family: sans-serif;

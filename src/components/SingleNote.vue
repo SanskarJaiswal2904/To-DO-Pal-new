@@ -1,4 +1,7 @@
 <template>
+  <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
+
+
     <div class="table-container" style="font-size: 20px; color: #333;">
         <div class="flexitems">
             <h2>Notes</h2>
@@ -61,6 +64,12 @@
 <script setup>
     import { ref } from 'vue';
     import axios from 'axios';
+    import Toast from './Toast.vue';
+
+    const toastMessage = ref('');
+    const toastType = ref('');
+    const toastPausable = ref(false);
+    const toastKey = ref(0);
     
     const props = defineProps({
       items: {
@@ -80,6 +89,15 @@
       description: ''
     });
     
+    //Update toast
+    const updateToast = (msg, type, pause) => {
+      toastMessage.value = msg;
+      toastType.value = type;
+      toastPausable.value = pause;
+      toastKey.value++; // Increment the key to force re-render
+      console.log('Toast displayed')
+    }
+
     const deleteEveryNote = async () => {
       const confirmed = confirm("Are you sure you want to delete all the notes?");
       if (!confirmed) {
@@ -91,9 +109,13 @@
     
       try {
         const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteall/${parsedUser._id.$oid}`);
-        location.reload();
         if (response.status === 200) {
           console.log('All notes deleted successfully');
+          //Toast
+          updateToast('All notes deleted successfully.', 'success', true);
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
         }
       } catch (error) {
         console.error('Error deleting notes:', error);
@@ -105,8 +127,12 @@
       try {
         const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteone/${sno.$oid}`);
         if (response.status === 200) {
-          location.reload();
           console.log(`Note ${sno.$oid} deleted successfully`);
+          //Toast
+          updateToast('Note deleted successfully', 'success', true);
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
         }
       } catch (error) {
         console.error('Error deleting note:', error);
@@ -133,8 +159,12 @@
         });
         if (response.status === 200) {
           console.log(`Note ${currentNote.value._id.$oid} updated successfully`);
+          //Toast
+          updateToast('Note updated successfully', 'success', true);          
           closeModal();
-          location.reload();
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
         }
       } catch (error) {
         console.error('Error updating note:', error);

@@ -44,11 +44,15 @@
       </div>
     </ul>
   </div>
+
+  <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
+
 </template>
 
 <script setup>
 import { useTaskStore } from '@/store/TaskStore';
 import { onMounted, ref } from 'vue';
+import Toast from './Toast.vue';
 import { defineEmits } from 'vue';
 
 const TaskStore = useTaskStore();
@@ -57,6 +61,19 @@ const searchTerm = ref('');
 const userInfo = ref({});
 const userIsAdmin = ref(false);
 
+const toastMessage = ref('');
+const toastType = ref('');
+const toastPausable = ref(false);
+const toastKey = ref(0);
+
+//Update toast
+const updateToast = (msg, type, pause) => {
+    toastMessage.value = msg;
+    toastType.value = type;
+    toastPausable.value = pause;
+    toastKey.value++; // Increment the key to force re-render
+    console.log('Toast displayed')
+}
 
 const emitSearch = () => {
   // searchTerm.value = searchTerm.value.trim();
@@ -80,11 +97,14 @@ const logout = () => {
   if (confirm("Are you sure you want to log out?")) {
     TaskStore.logOut();
     console.log("Logging out...");
+    //Toast
+    updateToast('Logged out Successfully.', 'success', false);
     localStorage.clear();
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   }
 };
-
 </script>
 
 

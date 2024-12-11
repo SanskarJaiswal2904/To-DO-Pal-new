@@ -1,5 +1,7 @@
 <template>
+  
   <Navbar @search="handleSearch" />
+  <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
 
   <div class="loading" v-if="isLoading">
     <Skeleton_Notes/>
@@ -66,6 +68,9 @@ import Footer from './Footer.vue';
 import SingleNote from './SingleNote.vue';
 import Navbar from './Navbar.vue';
 import Skeleton_Notes from '@/skeleton/Skeleton_Notes.vue';
+import Toast from './Toast.vue';
+
+
 const text = ref('');
 const title = ref('');
 const username = ref('');
@@ -76,6 +81,20 @@ const router = useRouter();
 const isLoading = ref(true);
 
 const userInfo = ref({});
+
+const toastMessage = ref('');
+const toastType = ref('');
+const toastPausable = ref(false);
+const toastKey = ref(0);
+
+//Update toast
+const updateToast = (msg, type, pause) => {
+    toastMessage.value = msg;
+    toastType.value = type;
+    toastPausable.value = pause;
+    toastKey.value++; // Increment the key to force re-render
+    console.log('Toast displayed')
+}
 
 const saveText = async () => {
 
@@ -88,7 +107,11 @@ const saveText = async () => {
     });
 
     if (response.status === 201) {
-      location.reload()
+      //Toast
+      updateToast('Note Saved Successfully.', 'success', false);
+      setTimeout(() => {
+        location.reload()
+      }, 1500);
       const saveBtn = document.querySelector('.save-btn');
       if (saveBtn) {
         saveBtn.classList.add('clicked');
@@ -111,6 +134,8 @@ const saveText = async () => {
     }
   } catch (error) {
     console.error('Error saving note:', error);
+    //Toast
+    updateToast('Note was not saved Successfully.', 'error', false);
   }
   onMounted();
 };
@@ -119,9 +144,17 @@ const handleSearch = (searchTerm) => {
   console.log('Received search term:', searchTerm);
   console.log(searchTerm.length)
   if(searchTerm.length > 0){  
+    //Toast
+    updateToast('Searching for \''+searchTerm +'\'.', 'info', true);
     filteredNotes.value = notes.value.filter(note => 
       note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      note.description.toLowerCase().includes(searchTerm.toLowerCase())
+      note.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    
+      setTimeout(() => {
+        //Toast
+        updateToast('Search completed.', 'success', false)
+      }, 500)
+      
     );
   }
 };
@@ -134,16 +167,20 @@ function formatDate(dateStr) {
 
 onMounted(async () => {
   document.title = "TO-DO Pal - Home";
+
+  //Toast
+  updateToast('Save a note to view.', 'info', true);
   
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
   if (data) {
     userInfo.value = JSON.parse(data); // Parse the user info from localStorage
   } else {
+    updateToast('Please sign in to continue.', 'info', true);
     router.push({ name: 'SignIn' }).then(() => {
       setTimeout(() => {
         location.reload();
-      }, 0);
+      }, 1300);
     });
   }
 
@@ -188,6 +225,8 @@ const taskdone = async (note) => {
     });
     if (response.status === 200) {
       console.log('Note updated successfully');
+      //Toast
+      updateToast(`Note has been marked as ${note.isCompleted ? 'completed' : 'incomplete'}.`, 'success', false);
     }
   } catch (error) {
     console.error('Error updating note:', error);
@@ -198,6 +237,9 @@ const copyText = () => {
   navigator.clipboard.writeText(title.value + " - " + text.value).then(
     () => {
       console.log('Text copied to clipboard');
+     //Toast
+     updateToast('Text copied to clipboard.', 'success', false);
+
     },
     (error) => {
       console.error('Error copying text:', error);

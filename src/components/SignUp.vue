@@ -1,5 +1,7 @@
 <template>
 <div>
+    <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
+
     <div class="image-container">
         <img src="../assets/todopalLogo.png" alt="Website Logo" width="200px" class="centered-image">
     </div>
@@ -56,7 +58,10 @@
         <br><br>
         <p class="errorinP" v-if="error.length > 0">*{{ error }}</p>
         <br>
-        <button type="submit" class="signup-btn">Sign Up</button>
+        <button type="submit" class="signup-btn" :disabled="isLoading">
+            <span v-if="isLoading">Signing Up...</span>
+            <span v-else>Sign Up</span>
+          </button>          
     </form>
 
     <router-link to="/signin" class="signup-link">
@@ -71,154 +76,171 @@
 </div>
 </template>
 
-<script>
-import {
-    ref,
-    onMounted
-} from 'vue';
-import {
-    useRouter
-} from 'vue-router';
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+import Toast from './Toast.vue';
 
-export default {
-    directives: {},
-    setup() {
-        const name = ref('');
-        const email = ref('');
-        const password = ref('');
-        const cpassword = ref('');
-        const gender = ref('');
-        const error = ref('');
-        const adminCode = ref('');
-        const isAdmin = ref(false);
-        const router = useRouter();
+const name = ref('');
+const email = ref('');
+const password = ref('');
+const cpassword = ref('');
+const gender = ref('');
+const error = ref('');
+const adminCode = ref('');
+const isAdmin = ref(false);
+const router = useRouter();
+const isLoading = ref(false); // Tracks the loading state
 
-        const handleSignUp = () => {
-            const validPassword = isPasswordStrong(password.value);
+const toastMessage = ref('');
+const toastType = ref('');
+const toastPausable = ref(false);
+const toastKey = ref(0);
 
-            printEveryModel();
-            
-            if (isAdmin.value == true && 
-                (adminCode.value !== import.meta.env.VITE_ADMIN_UUID_CODE && 
+//Signup Handler
+const handleSignUp = async () => {
+    try {
+        isLoading.value = true; // Disable the button
+        const validPassword = isPasswordStrong(password.value);
+
+        printEveryModel();
+        error.value = "";
+
+        if (isAdmin.value === true &&
+            (adminCode.value !== import.meta.env.VITE_ADMIN_UUID_CODE &&
                 adminCode.value !== import.meta.env.VITE_ADMIN_DEV_CODE)) {
-                        error.value = "Admin Code is Invalid";
-            }
+            error.value = "Admin Code is Invalid.";
+            // Toast
+            updateToast(error.value, 'error', true);
+        }
 
+        if (validPassword === "Password is strong.") {
+            if (password.value !== cpassword.value) {
+                error.value = "Passwords do not match.";
+                // Toast
+                updateToast(error.value, 'error', true);
+                console.log("1" + error.value);
+            } else {
+                console.log("2" + error.value);
+                if (error.value === '') {
 
-            if (validPassword === "Password is strong.") {
-                if (password.value !== cpassword.value) {
-                    error.value = "Passwords do not match.";
-                    console.log("1"+error.value);
-                } else {
-                    console.log("2"+error.value);
-                    if (error.value === '') {
+                    const userInfo = {
+                        name: name.value,
+                        email: email.value,
+                        password: password.value,
+                        gender: gender.value,
+                        isAdmin: isAdmin.value
+                    };
 
-                        const userInfo = {
-                            name: name.value,
-                            email: email.value,
-                            password: password.value,
-                            gender: gender.value,
-                            isAdmin: isAdmin.value
-                        };
-
-                        axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo)
-                            .then(response => {
-                                alert("Account Created.");
-                                resetEveryModel();
-                                router.push({
-                                    name: 'SignIn'
-                                });
-                            })
-                            .catch(error => {
-                                console.error(error);
-                                alert(error.response.data.error)
-                            });
-                    }
-                    console.log("3"+error.value);
+                    await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
+                    alert("Account Created.");
+                    updateToast('Account Created Successfully.', 'success', true);
+                    resetEveryModel();
+                    router.push({
+                        name: 'SignIn'
+                    });
                 }
-            } else {
-                error.value = validPassword;
+                console.log("3" + error.value);
             }
-        };
-
-        const printEveryModel = () => {
-            console.log("Name:", name.value);
-            console.log("Email:", email.value);
-            // console.log("Password:", password.value);
-            // console.log("Confirm Password:", cpassword.value);
-            console.log("Gender:", gender.value);
-            console.log("Error:", error.value);
-            console.log("Is Admin:", isAdmin.value);
-            console.log("Admin Code:", adminCode.value);
+        } else {
+            error.value = validPassword;
+            // Toast
+            updateToast(error.value, 'error', true);
         }
-
-        const resetEveryModel = () => {
-            name.value = '';
-            email.value = '';
-            password.value = '';
-            cpassword.value = '';
-            gender.value = '';
-            error.value = '';
-            isAdmin.value = false;
-            adminCode.value = '';
-        }
-
-        onMounted(() => {
-        document.title = "TO-DO Pal - SignUp";
-        let data = localStorage.getItem('user-info');
-
-        // console.log(import.meta.env.VITE_ADMIN_DEV_CODE)
-        // console.log(import.meta.env.VITE_ADMIN_UUID_CODE)
-        
-        if (data) {
-          router.push({ name: 'Notes' }).then(() => {
-            setTimeout(() => {
-                location.reload();
-            }, 1);
-          });
-        }
-        
-      });
-
-        const isPasswordStrong = (password) => {
-            const minLength = 8;
-            const hasUppercase = /[A-Z]/.test(password);
-            const hasLowercase = /[a-z]/.test(password);
-            const hasNumber = /[0-9]/.test(password);
-            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-            if (password === "111") { //for dev purpose
-                return "Password is strong.";
-            } else if (password.length < minLength) {
-                return "Password must be at least 8 characters long.";
-            } else if (!hasUppercase) {
-                return "Password must contain at least one uppercase letter.";
-            } else if (!hasLowercase) {
-                return "Password must contain at least one lowercase letter.";
-            } else if (!hasNumber) {
-                return "Password must contain at least one number.";
-            } else if (!hasSpecialChar) {
-                return "Password must contain at least one special character.";
-            } else {
-                return "Password is strong.";
-            }
-        };
-
-        return {
-            name,
-            email,
-            password,
-            cpassword,
-            gender,
-            error,
-            isAdmin,
-            adminCode,
-            handleSignUp
-        };
+    } catch (error) {
+        console.error(error);
+        alert(error.response?.data?.error || 'An error occurred');
+    } finally {
+        isLoading.value = false; // Re-enable the button
     }
 };
+
+
+const printEveryModel = () => {
+    console.log("Name:", name.value);
+    console.log("Email:", email.value);
+    // console.log("Password:", password.value);
+    // console.log("Confirm Password:", cpassword.value);
+    console.log("Gender:", gender.value);
+    console.log("Error:", error.value);
+    console.log("Is Admin:", isAdmin.value);
+    console.log("Admin Code:", adminCode.value);
+};
+
+const resetEveryModel = () => {
+    name.value = '';
+    email.value = '';
+    password.value = '';
+    cpassword.value = '';
+    gender.value = '';
+    error.value = '';
+    isAdmin.value = false;
+    adminCode.value = '';
+};
+
+onMounted(() => {
+    document.title = "TO-DO Pal - SignUp";
+    let data = localStorage.getItem('user-info');
+
+    //Toast
+    updateToast('Create an Account.', 'info', true);
+
+    setTimeout(() => {
+        //Toast
+        updateToast('Unlock special privileges by becoming an Admin!', 'info', true);
+    }, 1300);
+
+
+    // console.log(import.meta.env.VITE_ADMIN_DEV_CODE)
+    // console.log(import.meta.env.VITE_ADMIN_UUID_CODE)
+
+    if (data) {
+        //Toast
+        updateToast('Already logged in.', 'info', true);
+        router.push({ name: 'Notes' }).then(() => {
+            setTimeout(() => {
+                location.reload();
+            }, 1300);
+        });
+    }
+});
+
+//Update toast
+const updateToast = (msg, type, pause) => {
+    toastMessage.value = msg;
+    toastType.value = type;
+    toastPausable.value = pause;
+    toastKey.value++; // Increment the key to force re-render
+    console.log('Toast displayed')
+}
+
+const isPasswordStrong = (password) => {
+    const minLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password === "111") { // for dev purpose
+        return "Password is strong.";
+    } else if (password.length < minLength) {
+        return "Password must be at least 8 characters long.";
+    } else if (!hasUppercase) {
+        return "Password must contain at least one uppercase letter.";
+    } else if (!hasLowercase) {
+        return "Password must contain at least one lowercase letter.";
+    } else if (!hasNumber) {
+        return "Password must contain at least one number.";
+    } else if (!hasSpecialChar) {
+        return "Password must contain at least one special character.";
+    } else {
+        return "Password is strong.";
+    }
+};
+
 </script>
+
 
 <style scoped>
 .main-header {

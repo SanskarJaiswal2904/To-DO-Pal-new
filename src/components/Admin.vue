@@ -1,5 +1,9 @@
 <template>
   <Navbar />
+
+  <Toast :message="toastMessage" :type="toastType" :pausable="toastPausable" :key="toastKey"/>
+
+
   <div class="loading" v-if="isLoading">
     <Skeleton_Admin />
   </div>
@@ -32,11 +36,27 @@ import router from '@/routes';
 import Footer from './Footer.vue';
 import Navbar from './Navbar.vue';
 import Skeleton_Admin from '@/skeleton/Skeleton_Admin.vue';
+import Toast from './Toast.vue';
+
 
 const users = ref([]);
 const loading = ref(true);
 const userIsAdmin = ref(false);
 const isLoading = ref(true);
+
+const toastMessage = ref('');
+const toastType = ref('');
+const toastPausable = ref(false);
+const toastKey = ref(0);
+
+//Update toast
+const updateToast = (msg, type, pause) => {
+    toastMessage.value = msg;
+    toastType.value = type;
+    toastPausable.value = pause;
+    toastKey.value++; // Increment the key to force re-render
+    console.log('Toast displayed')
+}
 
 const fetchUsers = async () => {
   try {
@@ -54,12 +74,19 @@ const deleteUser = async (userId) => {
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/deleteUser/${userId}`);
     if (response.status === 200) {
       users.value = users.value.filter(user => user._id !== userId);
+      //Toast
+      updateToast('User and associated notes deleted successfully.', 'success', true);
       alert('User and associated notes deleted successfully.');
     } else {
+      //Toast
+      updateToast('Failed to delete user or notes.', 'error', true);
       alert('Failed to delete user or notes.');
+      
     }
   } catch (error) {
     console.error('Error deleting user or notes:', error);
+    //Toast
+    updateToast('An error occurred while deleting the user or notes.', 'error', true);
     alert('An error occurred while deleting the user or notes.');
   }
 };
@@ -73,13 +100,18 @@ const confirmDeleteUser = async (userId, userName) => {
 
 onMounted(() => {
   document.title = "TO-DO Pal - Admin";
+  
+  //Toast
+  updateToast('Welcome, Admin!', 'info', false);
+
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
   if (!data) {
+    updateToast('Please sign in to continue', 'info', true);
     router.push({ name: 'SignIn' }).then(() => {
       setTimeout(() => {
         location.reload();
-      }, 1);
+      }, 1300);
     });
   } else {
     const userData = JSON.parse(data);
@@ -87,10 +119,11 @@ onMounted(() => {
       userIsAdmin.value = true;
       fetchUsers();
     } else {
+      updateToast('You do not have admin privileges.', 'info', true);
       router.push({ name: 'NotAdmin' }).then(() => {
         setTimeout(() => {
           location.reload();
-        }, 1);
+        }, 1300);
       });
     }
   }
