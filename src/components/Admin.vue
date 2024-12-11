@@ -110,7 +110,7 @@ onMounted(() => {
   document.title = "TO-DO Pal - Admin";
   
   //Toast
-  updateToast('Greetings, Admin! Welcome!', 'info', false);
+  updateToast('Greetings, Admin! You’re all set to lead the way.', 'info', false);
 
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
