@@ -16,8 +16,16 @@
           <h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 2rem; font-weight:bold; color: #333; margin-bottom: 10px;">Users</h1>
           <ul>
             <li v-for="user in users" :key="user._id" class="user-card" :title="user._id">
-              <strong>Name: {{ user.name }}</strong>
-              <strong style="font-style:italic">Email: {{ user.email }}</strong>
+              <div class="user-info">
+                <strong class="user-name" :style="{ color: '#2E8B57' }">Name: {{ user.name }}</strong> 
+                <div class="user-details">
+                  <span style="color: #8A2BE2">Email: {{ user.email }}</span> 
+                  <span :style="{ color: user.gender === 'male' ? '#1E90FF' : user.gender === 'female' ? '#FF1493' : '#20B2AA' }">
+                    Gender: {{ user.gender === 'male' ? 'Male' : user.gender === 'female' ? 'Female' : 'Others' }}
+                  </span> 
+                  <span :style="{color: user.isAdmin ? '#228B22' : '#DC143C' }">Administrator: {{ user.isAdmin ? 'True' : 'False' }}</span> 
+                </div>
+              </div>
               <button class="delete-btn" @click="confirmDeleteUser(user._id, user.name)">Delete User</button>
             </li>
           </ul>
@@ -102,12 +110,12 @@ onMounted(() => {
   document.title = "TO-DO Pal - Admin";
   
   //Toast
-  updateToast('Welcome, Admin!', 'info', false);
+  updateToast('Greetings, Admin! Welcome!', 'info', false);
 
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
   if (!data) {
-    updateToast('Please sign in to continue', 'info', true);
+    updateToast('Please sign in to continue.', 'info', true);
     router.push({ name: 'SignIn' }).then(() => {
       setTimeout(() => {
         location.reload();
@@ -159,14 +167,14 @@ button {
 /* Delete Button Styles */
 button.delete-btn {
   background-color: rgb(248, 228, 228);
-    color: red;
-    border: 1px solid red;
+  color: red;
+  border: 1px solid red;
 }
 
 button.delete-btn:hover {
   background-color: red;
-    color: white;
-    border: 1px solid red;
+  color: white;
+  border: 1px solid red;
   box-shadow: 0 0 10px rgba(200, 35, 51, 0.3);
 }
 
@@ -191,6 +199,7 @@ button.delete-btn:hover {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
+  align-items: center;
 }
 
 .user-card:hover {
@@ -207,4 +216,24 @@ button.delete-btn:hover {
     transform: scale(1.02);
   }
 }
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.user-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 1rem;
+  font-style: italic;
+}
 </style>
+

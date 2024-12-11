@@ -90,7 +90,7 @@ def login():
 @app.route("/alluser", methods=["GET"])
 def get_all_users():
     try:
-        users = list(db.userInfoCollection.find({}, {"_id": 1, "name": 1, "email": 1}))
+        users = list(db.userInfoCollection.find({}, {"_id": 1, "name": 1, "email": 1, "gender": 1, "isAdmin": 1}))
         for user in users:
             user["_id"] = str(user["_id"])
         return jsonify(users)
