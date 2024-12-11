@@ -74,26 +74,30 @@ To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It
 - Mark tasks as completed or not completed.  
 - User profile customization.  
 - Admin panel to monitor and track user activities.  
+- **Toast notifications** for success, error, and informational alerts using Vue-Toastification.
 
 ## Technologies Used  
 - Vue.js for the frontend user interface.  
 - Flask for the backend server.  
 - MongoDB for database management.  
 - Axios for handling API requests.  
+- Vue-Toastification for displaying user-friendly toast notifications.
 
 ## Installation  
 1. Clone this repository to your local machine.  
 2. Install the required dependencies for both frontend and backend using `npm install` and `pip install`.  
 3. Set up a MongoDB database and update the configuration.  
 4. Run the Flask server and Vue development server to start the application.
-5. If you try to visit the '/' page without logging in you would be redirected to SignIn page.
-6. If you are not an admin and try to access the '/admin' page you would be redirected to "403 Forbidden" Page.
+5. If you try to visit the '/' page without logging in, you will be redirected to the SignIn page with an **info toast notification** prompting you to sign in.
+6. If you are not an admin and try to access the '/admin' page, you will be redirected to a **403 Forbidden** page, with an appropriate **error toast notification**.
 
 ## Usage  
 - Sign up or log in to manage your tasks.  
 - Add, update, and mark tasks as done or not done.  
 - Customize your user profile for a personalized experience.  
 - Admin users can access the admin dashboard to oversee app activities.  
+- Toast notifications are used throughout the app to inform users of important actions (e.g., task updates, profile changes, unauthorized access and etc).
 
 ## Credits  
-This project was developed by [Sanskar](https://sanskarjaiswal2904.github.io/Sanskar-Website/).    
+This project was developed by [Sanskar](https://sanskarjaiswal2904.github.io/Sanskar-Website/).  
+
