@@ -99,15 +99,15 @@ onMounted(async () => {
 
 const logout = () => {
   if (confirm("Are you sure you want to log out?")) {
+    //Toast
+    updateToast('Logged out Successfully.', 'success', false);
     router.push({ name: 'Notes' }).then(() => {
         setTimeout(() => {
           location.reload();
-        }, 1);
+        }, 900);
       });
-    TaskStore.logOut();
     console.log("Logging out...");
-    //Toast
-    updateToast('Logged out Successfully.', 'success', false);
+    TaskStore.logOut();
     localStorage.clear();
     setTimeout(() => {
       window.location.reload();
