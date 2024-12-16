@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUpdated} from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import Toast from './Toast.vue';
@@ -97,6 +97,8 @@ const toastMessage = ref('');
 const toastType = ref('');
 const toastPausable = ref(false);
 const toastKey = ref(0);
+const toastShown = ref(false); // New flag to prevent duplicate toasts
+
 
 //Signup Handler
 const handleSignUp = async () => {
@@ -238,6 +240,18 @@ const isPasswordStrong = (password) => {
         return "Password is strong.";
     }
 };
+
+// onUpdated lifecycle hook
+onUpdated(() => {
+      if (isAdmin.value && !toastShown.value) {
+        toastShown.value = true; // Prevent further toasts
+        updateToast("For Development Purposes", 'error', true);
+        setTimeout(() => {
+          updateToast("Admin UUID Code is 12345", 'info', true);
+        }, 900);
+      }
+});
+
 
 </script>
 
