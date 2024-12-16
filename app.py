@@ -28,8 +28,6 @@ load_dotenv()
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 
 # app.config["MONGO_URI"] = "mongodb://localhost:27017/newtodopal"
-# app.config["MONGO_URI"] = "mongodb+srv://sanskarjaiswal2904:cLT81iq89uVmnBrP@todo.7w890j6.mongodb.net/newtodopal"
-# app.config["MONGO_URI"] = "mongodb+srv://sanskarjaiswal2904:cLT81iq89uVmnBrP@todo.7w890j6.mongodb.net/newtodopal?retryWrites=true&w=majority&appName=todo"
 
 
 
