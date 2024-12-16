@@ -13,7 +13,7 @@
       <div class="admin-panel">
         <div v-if="loading" class="loading">Loading...</div>
         <div v-else>
-          <h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 2rem; font-weight:bold; color: #333; margin-bottom: 10px;">Users</h1>
+          <h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 2rem; font-weight:bold; color: #333; margin-bottom: 10px;" >{{UsersName}}</h1>
           <ul>
             <li v-for="user in users" :key="user._id" class="user-card" :title="user._id">
               <div class="user-info">
@@ -51,6 +51,8 @@ const users = ref([]);
 const loading = ref(true);
 const userIsAdmin = ref(false);
 const isLoading = ref(true);
+const UsersName = ref('No Users found.')
+
 
 const toastMessage = ref('');
 const toastType = ref('');
@@ -70,8 +72,12 @@ const fetchUsers = async () => {
   try {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/alluser`);
     users.value = response.data;
+    UsersName.value = 'Users :';  
+    //Toast
+    updateToast('Greetings, Admin! You’re all set to lead the way.', 'info', false);
   } catch (error) {
     console.error('Error fetching users:', error);
+    updateToast('No Users found.', 'error', true);
   } finally {
     loading.value = false;
   }
@@ -108,9 +114,6 @@ const confirmDeleteUser = async (userId, userName) => {
 
 onMounted(() => {
   document.title = "TO-DO Pal - Admin";
-  
-  //Toast
-  updateToast('Greetings, Admin! You’re all set to lead the way.', 'info', false);
 
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
@@ -139,6 +142,9 @@ onMounted(() => {
     isLoading.value = false;
   }, 750);
 });
+
+
+
 </script>
 
 

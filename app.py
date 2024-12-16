@@ -264,7 +264,33 @@ def update_one_note(sno):
 def test():
     return "Test route is working!"
 
+@app.route('/')
+def home():
+    return "Backend is live!"
 
+@app.route('/signin')
+def signin():
+    return "Signin route is live!"
+
+@app.route('/signup')
+def signup():
+    return "Signup route is live!"
+
+@app.route('/about')
+def about():
+    return "About route is live!"
+
+@app.route('/admin')
+def admin():
+    return "Admin route is live!"
+
+@app.route('/notadmin')
+def not_admin():
+    return "Not Admin route is live!"
+
+@app.route('/profile')
+def profile():
+    return "Profile route is live!"
 
 @app.errorhandler(404)
 def not_found(e):
