@@ -21,8 +21,9 @@
                   <i class="fa-brands fa-js" title="JavaScript (ES6+)" style="color: #F7DF1E;"></i>
                   <i class="fa-brands fa-vuejs" title="Vue.js" style="color: #42B883;"></i>
                   <i class="fa-brands fa-python" title="Python (Flask)" style="background: linear-gradient(45deg, #306998, #FFD43B); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"></i>
-                  <img src="../assets/triangle.svg" alt="Server Icon" title="Vercel and Render" width="18" height="18">
                   <i class="fa-solid fa-leaf" title="MongoDB" style="color: #47A248;"></i>
+                  <img src="../assets/triangle.svg" alt="Server Icon" title="Vercel" width="17" height="17">
+                  <img src="../assets/renderIcon.svg" alt="Server Icon" title="Render" width="17" height="17">
                 </div>
               </div>
               </div>

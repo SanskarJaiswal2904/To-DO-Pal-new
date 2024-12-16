@@ -264,9 +264,6 @@ def update_one_note(sno):
 def test():
     return "Test route is working!"
 
-@app.route('/')
-def home():
-    return "Backend is live!"
 
 
 @app.errorhandler(404)
