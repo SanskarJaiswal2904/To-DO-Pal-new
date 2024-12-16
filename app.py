@@ -1,7 +1,7 @@
 ##Everything Implemented
 #######################
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from bson import ObjectId
@@ -260,37 +260,40 @@ def update_one_note(sno):
     else:
         return jsonify({"error": f"No note found with ID {sno}"}), 404
 
+
+## So That Vercel Doesn't Get Confuse Between Backend And Frontend
 @app.route('/test')
 def test():
     return "Test route is working!"
 
 @app.route('/')
 def home():
-    return "Backend is live!"
+    return redirect("https://to-do-pal-new.vercel.app/")
 
 @app.route('/signin')
 def signin():
-    return "Signin route is live!"
+    return redirect("https://to-do-pal-new.vercel.app/signin")
 
 @app.route('/signup')
 def signup():
-    return "Signup route is live!"
+    return redirect("https://to-do-pal-new.vercel.app/signup")
 
 @app.route('/about')
 def about():
-    return "About route is live!"
+    return redirect("https://to-do-pal-new.vercel.app/about")
 
 @app.route('/admin')
 def admin():
-    return "Admin route is live!"
+    return redirect("https://to-do-pal-new.vercel.app/admin")
 
 @app.route('/notadmin')
 def not_admin():
-    return "Not Admin route is live!"
+    return redirect("https://to-do-pal-new.vercel.app/notadmin")
 
 @app.route('/profile')
 def profile():
-    return "Profile route is live!"
+    return redirect("https://to-do-pal-new.vercel.app/profile")
+
 
 @app.errorhandler(404)
 def not_found(e):
