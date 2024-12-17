@@ -2,8 +2,8 @@ import nodemailer from 'nodemailer';
 
 // The sendOTP function definition
 export async function sendOTP(email, otp) {
-    const EMAIL_USER = process.env.EMAIL_USER || "todopal.otp@gmail.com";
-    const EMAIL_PASS = process.env.EMAIL_PASS || "msmitfcjcgilbcvf";
+    const EMAIL_USER = import.meta.env.VITE_EMAIL_USER || "todopal.otp@gmail.com";
+    const EMAIL_PASS = import.meta.env.VITE_EMAIL_PASS || "msmitfcjcgilbcvf";
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
