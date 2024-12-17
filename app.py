@@ -10,6 +10,8 @@ from bson.json_util import dumps
 import bcrypt  # Import bcrypt for password hashing
 import os
 from dotenv import load_dotenv
+import subprocess
+
 
 
 
@@ -257,6 +259,37 @@ def update_one_note(sno):
         return jsonify({"message": f"Note with ID {sno} updated successfully"}), 200
     else:
         return jsonify({"error": f"No note found with ID {sno}"}), 404
+
+# Endpoint to handle sending OTP
+@app.route('/send-otp', methods=['POST'])
+def send_otp_route():
+    data = request.get_json()
+    email = data.get("email")
+    otp = data.get("otp")
+
+    print(f"Email: {email} OTP: {otp}")
+
+    try:
+        # Call the Node.js script with email and OTP as arguments
+        result = subprocess.run(
+            ["node", "./src/services/emailServicePY.js", email, otp],  # Passing email and OTP as command-line args
+            capture_output=True,
+            text=True
+        )
+
+        # Parse the response
+        if result.returncode == 0:
+            print("OTP Sent Successfully!! Check Mail!")
+            print("stdout:", result.stdout)
+            return jsonify({"success": True, "message": result.stdout.strip()})
+        else:
+            print("OTP was not Sent Successfully!!", result.stderr)
+            return jsonify({"success": False, "message": result.stderr.strip()}), 500
+
+    except Exception as e:
+        print("Error sending OTP:", str(e))
+        return jsonify({"success": False, "message": "An error occurred."}), 500
+    
 
 
 ## So That Vercel Doesn't Get Confuse Between Backend And Frontend

@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps, onMounted } from 'vue';
-import { showToast } from '../../toastservice'; 
+import { showToast } from '../services/toastservice'; 
 
 const { message, type, pausable } = defineProps({
   message: {

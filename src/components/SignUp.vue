@@ -10,9 +10,43 @@
         <label for="name" name="Name" class="input-feild-title-style">Name</label>
         <input type="text" placeholder="Enter your Name" v-model.lazy="name" name="name" class="input-field" required>
         <br><br>
+
+
         <label for="email" name="Email" class="input-feild-title-style">Email</label>
-        <input type="email" placeholder="Enter your Email" v-model.lazy="email" name="email" class="input-field" required>
-        <br><br>
+        <input 
+            @keyup.enter="sendOTP" 
+            type="email" 
+            placeholder="Enter your Email" 
+            v-model.lazy="email" 
+            name="email" 
+            class="input-field" 
+            required 
+            :disabled="otpVerificationDone"
+        />
+
+        <button 
+            type="button"
+            @click="initiateOTP" 
+            :disabled="buttonClicked" 
+            class="otp-button" 
+            :title="otpVerificationDone ? 'Email is Verified' : 'Send OTP for Email Verification'">
+            <span v-if="otpVerificationDone">
+                <i class="fa-solid fa-check"></i>
+            </span>
+            <span v-else>
+                Send OTP
+            </span>
+        </button>
+
+
+        <SMTPServerPY v-if="otpServiceStarted"
+            :emailIdOfUser="emailIdOfUser" :buttonClicked="buttonClicked"
+            @otpSent="handleOTPSent" 
+            @errorMessage="handleErrorFromOTPComponent" 
+            @otpVerified="handleOTPVerified" />
+        <br><br><br>
+
+
 
         <label for="password" name="password" class="input-feild-title-style">Password</label>
         <div class="password-container">
@@ -81,6 +115,7 @@ import { ref, onMounted, onUpdated} from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import Toast from './Toast.vue';
+import SMTPServerPY from './SMTPServerPY.vue';
 
 const name = ref('');
 const email = ref('');
@@ -98,6 +133,64 @@ const toastType = ref('');
 const toastPausable = ref(false);
 const toastKey = ref(0);
 const toastShown = ref(false); // New flag to prevent duplicate toasts
+
+let emailIdOfUser = '';
+let buttonClicked = false;
+let otpServiceStarted = false;
+let otpVerificationDone = false;
+
+//Initiate OTP Services
+const initiateOTP = () => {
+    if(!email.value){
+        updateToast("Enter valid Email Id.", error, false);
+        return;
+    }
+    updateToast("OTP will be sent to the given Email Id.", "info", true);
+    setTimeout(() => {
+        updateToast("For development purposes, Default OTP is 543210", "info", true);
+    }, 900);
+    emailIdOfUser = email.value;
+    buttonClicked = true;
+    otpServiceStarted = true;
+}
+
+const handleOTPSent = (message) => {
+    updateToast("OTP sent successfully! Please check your email.", "success", true);
+    buttonClicked = true;
+    console.log(message);
+};
+
+const handleErrorFromOTPComponent = (message) => {
+    updateToast(message, "error", true);
+    console.log(message);
+};
+
+const handleOTPVerified = (message) => {
+    updateToast("OTP verified successfully!", "success", true);
+    setTimeout(() => {
+        updateToast("Email is Verified.", "success", false);
+    }, 900);
+    otpVerificationDone = true;
+    console.log(message);
+};
+
+//Validate email and otp
+const validateEmailAndOTP = () => {
+    if (!email.value && otpVerificationDone === true) {
+        error.value = "Please provide your email.";
+        updateToast(error.value, 'error', true);  // Toast
+        return false;
+    } else if (email.value && otpVerificationDone === false) {
+        error.value = "Please verify your email.";
+        updateToast(error.value, 'error', true);  // Toast
+        return false;
+    } else if (!email.value && otpVerificationDone === false) {
+        error.value = "Please provide your email and verify it.";
+        updateToast(error.value, 'error', true);  // Toast
+        return false;
+    }
+    return true; // True condition, when both email is provided and otpVerificationDone is true
+};
 
 
 //Signup Handler
@@ -120,30 +213,31 @@ const handleSignUp = async () => {
         if (validPassword === "Password is strong.") {
             if (password.value !== cpassword.value) {
                 error.value = "Passwords do not match.";
-                // Toast
-                updateToast(error.value, 'error', true);
+                updateToast(error.value, 'error', true); //Toast
                 console.log("1" + error.value);
             } else {
                 console.log("2" + error.value);
-                if (error.value === '') {
+                if(validateEmailAndOTP()){
+                    if (error.value === '') {
+                        
+                        const userInfo = {
+                            name: name.value,
+                            email: email.value,
+                            password: password.value,
+                            gender: gender.value,
+                            isAdmin: isAdmin.value
+                        };
 
-                    const userInfo = {
-                        name: name.value,
-                        email: email.value,
-                        password: password.value,
-                        gender: gender.value,
-                        isAdmin: isAdmin.value
-                    };
-
-                    await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
-                    alert("Account Created.");
-                    updateToast('Account Created Successfully.', 'success', true);
-                    resetEveryModel();
-                    router.push({
-                        name: 'SignIn'
-                    });
-                }
+                        await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
+                        alert("Account Created.");
+                        updateToast('Account Created Successfully.', 'success', true);
+                        resetEveryModel();
+                        router.push({
+                            name: 'SignIn'
+                        });
+                    }
                 console.log("3" + error.value);
+            }
             }
         } else {
             error.value = validPassword;
@@ -257,6 +351,31 @@ onUpdated(() => {
 
 
 <style scoped>
+
+.otp-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #9cff9f;
+    color: #16921a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 2px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .otp-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    z-index: -1;
+  }
+
+  .otp-button:hover {
+    background-color: #4CAF50; 
+    color: #ffffff;
+    transform: scale(1.1); 
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5); 
+}
 .main-header {
     font-family: sans-serif;
     font-weight: 700;
