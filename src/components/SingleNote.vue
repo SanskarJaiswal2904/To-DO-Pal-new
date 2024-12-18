@@ -129,7 +129,7 @@
       try {
         const response = await axios.delete(`${import.meta.env.VITE_API_URL}/notes/deleteone/${sno.$oid}`);
         if (response.status === 200) {
-          console.log(`Note ${sno.$oid} deleted successfully`);
+          console.log(`Note ${sno.$oid} deleted successfully.`);
           //Toast
           updateToast('Note deleted successfully', 'success', true);
           setTimeout(() => {
@@ -160,7 +160,7 @@
           description: currentNote.value.description
         });
         if (response.status === 200) {
-          console.log(`Note ${currentNote.value._id.$oid} updated successfully`);
+          console.log(`Note ${currentNote.value._id.$oid} updated successfully.`);
           //Toast
           updateToast('Note updated successfully', 'success', true);          
           closeModal();
