@@ -292,44 +292,10 @@ def send_otp_route():
     
 
 
-## So That Vercel Doesn't Get Confuse Between Backend And Frontend
-# @app.route('/test')
-# def test():
-#     return "Test route is working!"
-
-# @app.route('/')
-# def home():
-#     return redirect("https://to-do-pal-new.vercel.app/")
-
-# @app.route('/signin')
-# def signin():
-#     return redirect("https://to-do-pal-new.vercel.app/signin")
-
-# @app.route('/signup')
-# def signup():
-#     return redirect("https://to-do-pal-new.vercel.app/signup")
-
-# @app.route('/about')
-# def about():
-#     return redirect("https://to-do-pal-new.vercel.app/about")
-
-# @app.route('/admin')
-# def admin():
-#     return redirect("https://to-do-pal-new.vercel.app/admin")
-
-# @app.route('/notadmin')
-# def not_admin():
-#     return redirect("https://to-do-pal-new.vercel.app/notadmin")
-
-# @app.route('/profile')
-# def profile():
-#     return redirect("https://to-do-pal-new.vercel.app/profile")
-
-
-@app.errorhandler(404)
-def not_found(e):
-    return jsonify({"error": "Not found - Custom"}), 404
-
+# So That Vercel Doesn't Get Confuse Between Backend And Frontend
+@app.route('/test')
+def test():
+    return "Test route is working!"
 
 
 if __name__ == "__main__":
