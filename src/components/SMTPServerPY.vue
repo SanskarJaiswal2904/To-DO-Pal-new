@@ -1,10 +1,6 @@
 <template>
     <div class="container" v-if="!verificationCompleted">
-    <div class="otp-container">
-      <!-- Email input field -->
-      <div class="email-section">
-      </div>
-  
+    <div class="otp-container">  
       <!-- OTP Input Section -->
       <div class="otp-section">
         <div class="otp-inputs">
@@ -66,6 +62,7 @@
       emit('errorMessage', message.value);
       return;
     }
+    message.value = "Please hold on! Sending your OTP...";
     console.log("Sending OTP...")
   
     // Generate a random 6-digit OTP

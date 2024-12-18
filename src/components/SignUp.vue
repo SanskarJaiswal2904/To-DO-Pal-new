@@ -51,7 +51,7 @@
         <label for="password" name="password" class="input-feild-title-style">Password</label>
         <div class="password-container">
             <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required>
-            <span class="info-button" title="Password must be 8+ characters, with an uppercase letter, a lowercase letter, a number, and a special character.">i</span>
+            <span class="info-button" title="Password must be 8+ characters, with an uppercase letter, a lowercase letter, &#10; a number, and a special character.">i</span>
         </div>
 
         <br><br>
@@ -227,6 +227,7 @@ const handleSignUp = async () => {
                             gender: gender.value,
                             isAdmin: isAdmin.value
                         };
+                        console.log("User Info Payload:", userInfo); // Debugging Payload
                         updateToast('Please wait, this may take a while...', 'info', true); //Toast
                         await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
                         alert("Account Created.");
@@ -313,6 +314,7 @@ const updateToast = (msg, type, pause) => {
 
 const isPasswordStrong = (password) => {
     const minLength = 8;
+    const maxLength = 20;
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
@@ -322,6 +324,8 @@ const isPasswordStrong = (password) => {
         return "Password is strong.";
     } else if (password.length < minLength) {
         return "Password must be at least 8 characters long.";
+    } else if (password.length > maxLength) {
+        return `Password must be less than ${maxLength} characters.`;
     } else if (!hasUppercase) {
         return "Password must contain at least one uppercase letter.";
     } else if (!hasLowercase) {

@@ -98,7 +98,12 @@ const updateToast = (msg, type, pause) => {
 
 const saveText = async () => {
   if(title.value === '' || text.value === ''){
-      return;
+    if (title.value === '') {
+      updateToast('Title cannot be null.', 'error', true); // Toast
+    } else if (text.value === '') {
+      updateToast('Description cannot be null.', 'error', true); // Toast
+    }
+    return;
   }
 
   try {
@@ -110,8 +115,7 @@ const saveText = async () => {
     });
 
     if (response.status === 201) {
-      //Toast
-      updateToast('Note Saved Successfully.', 'success', false);
+      updateToast('Note Saved Successfully.', 'success', false); //Toast
       setTimeout(() => {
         location.reload()
       }, 1500);
@@ -154,8 +158,12 @@ const handleSearch = (searchTerm) => {
       note.description.toLowerCase().includes(searchTerm.toLowerCase()),
     
       setTimeout(() => {
-        window.scrollBy(0, 300);
-        updateToast('Search completed.', 'success', false);  //Toast
+        window.scrollBy({
+          top: 250, // Number of pixels to scroll vertically
+          left: 0,  // Number of pixels to scroll horizontally
+          behavior: 'smooth' // Enables smooth scrolling
+      });
+      updateToast('Search completed.', 'success', false);  //Toast
       }, 500)
       
     );
