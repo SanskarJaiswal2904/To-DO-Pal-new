@@ -28,6 +28,10 @@
       "destination": "https://to-do-pal-new.onrender.com/api/v1/notadmin"
     },
     {
+      "source": "/api/v1/send-otp",
+      "destination": "https://to-do-pal-new.onrender.com/api/v1/send-otp"
+    },
+    {
       "source": "/:path*",
       "destination": "/index.html"
     }
