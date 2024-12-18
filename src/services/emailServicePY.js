@@ -99,6 +99,8 @@ export async function sendOTP(email, otp) {
     try {
         await transporter.sendMail(mailOptions);
         console.log("OTP sent successfully!");
+        console.log("EMAIL_USER from env: "+ import.meta.env.VITE_EMAIL_USER +" EMAIL_USER: "+ EMAIL_USER)
+        console.log("EMAIL_PASS from env: "+ import.meta.env.VITE_EMAIL_PASS +" EMAIL_PASS: "+ EMAIL_PASS)
         process.stdout.write("OTP sent successfully!\n");  // Output success message to Python
     } catch (error) {
         console.log("Error:", error);

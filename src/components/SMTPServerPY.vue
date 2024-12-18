@@ -6,7 +6,7 @@
       </div>
   
       <!-- OTP Input Section -->
-      <div v-if="otpSent" class="otp-section">
+      <div class="otp-section">
         <div class="otp-inputs">
           <input
             v-for="(digit, index) in otp"
