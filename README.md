@@ -9,6 +9,15 @@ To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Signup%201.png" alt="Signup" title="Signup" width="1200" height="550"></td>
   </tr>
   <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/OTP%2021.png" alt="OTP" title="OTP" width="1200" height="550"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/OTPInMail%2022.png" alt="OTP in Email" title="OTP in Email" width="1200" height="550"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Verified%2023.png" alt="Verified" title="Verified" width="1200" height="550"></td>
+  </tr>
+  <tr>
     <td align="center"><img src="https://raw.githubusercontent.com/SanskarJaiswal2904/To-DO-Pal-new/master/src/Screenshot/Account%20Created%202.png" alt="Account Created" title="Account Created" width="1200" height="550"></td>
   </tr>
   <tr>
