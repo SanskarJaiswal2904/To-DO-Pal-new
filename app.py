@@ -292,7 +292,7 @@ def send_otp_route():
     
 
 
-# So That Vercel Doesn't Get Confuse Between Backend And Frontend
+# testing backend route
 @app.route('/test')
 def test():
     return "Test route is working!"
