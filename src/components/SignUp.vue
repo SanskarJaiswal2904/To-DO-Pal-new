@@ -227,7 +227,7 @@ const handleSignUp = async () => {
                             gender: gender.value,
                             isAdmin: isAdmin.value
                         };
-
+                        updateToast('Please wait, this may take a while...', 'info', true); //Toast
                         await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
                         alert("Account Created.");
                         updateToast('Account Created Successfully.', 'success', true);
