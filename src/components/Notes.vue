@@ -97,6 +97,9 @@ const updateToast = (msg, type, pause) => {
 }
 
 const saveText = async () => {
+  if(title.value === '' || text.value === ''){
+      return;
+  }
 
   try {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/notes`, {
@@ -167,9 +170,6 @@ function formatDate(dateStr) {
 
 onMounted(async () => {
   document.title = "TO-DO Pal - Home";
-
-  //Toast
-  updateToast('Save a note to view.', 'info', true);
   
   isLoading.value = true;
   let data = localStorage.getItem('user-info');
@@ -209,6 +209,9 @@ onMounted(async () => {
   } catch (error) {
     console.error(error.response.data.error);
     console.error('Error fetching notes:', error);
+  } finally{
+      //Toast
+  updateToast('Save a note to view.', 'info', true);
   }
   setTimeout(() => {
         isLoading.value = false;
