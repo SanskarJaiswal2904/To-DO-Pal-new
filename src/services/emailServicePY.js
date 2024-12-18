@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
 
 // Load environment variables from .env file
 dotenv.config();
