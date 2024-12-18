@@ -110,6 +110,10 @@ export async function sendOTP(email, otp) {
     } catch (error) {
         console.log("Error:", error);
         process.stderr.write(`Error: ${error.message}\n`);
+    } finally{
+      console.log('Nodemailer imported successfully:', !!nodemailer); // Checks if nodemailer is loaded
+      console.log('Current working directory:', process.cwd());       // Verifies the working directory
+      console.log('Environment NODE_ENV:', process.env.NODE_ENV);     // Logs the environment mode
     }
 }
 
