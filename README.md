@@ -82,7 +82,8 @@ To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It
 - Task management with the ability to create, update, and delete tasks.  
 - Mark tasks as completed or not completed.  
 - User profile customization.  
-- Admin panel to monitor and track user activities.  
+- Admin panel to monitor and track user activities.
+- **Nodemailer** is used for email verification during user registration.
 - **Toast notifications** for success, error, and informational alerts using Vue-Toastification.
 
 ## Technologies Used  
@@ -91,6 +92,7 @@ To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It
 - MongoDB for database management.  
 - Axios for handling API requests.  
 - Vue-Toastification for displaying user-friendly toast notifications.
+- **Nodemailer** for sending email verification OTPs.
 
 ## Installation  
 1. Clone this repository to your local machine.  
@@ -99,6 +101,7 @@ To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It
 4. Run the Flask server and Vue development server to start the application.
 5. If you try to visit the '/' page without logging in, you will be redirected to the SignIn page with an **info toast notification** prompting you to sign in.
 6. If you are not an admin and try to access the '/admin' page, you will be redirected to a **403 Forbidden** page, with an appropriate **error toast notification**.
+7. Email verification is handled using **Nodemailer** when users sign up for the app.
 
 ## Usage  
 - Sign up or log in to manage your tasks.  
@@ -106,7 +109,8 @@ To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It
 - Customize your user profile for a personalized experience.  
 - Admin users can access the admin dashboard to oversee app activities.  
 - Toast notifications are used throughout the app to inform users of important actions (e.g., task updates, profile changes, unauthorized access and etc).
-
+- **Nodemailer** ensures secure email verification to validate user accounts.
+    
 ## Credits  
 This project was developed by [Sanskar](https://sanskarjaiswal2904.github.io/Sanskar-Website/).  
 
