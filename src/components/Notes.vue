@@ -154,8 +154,8 @@ const handleSearch = (searchTerm) => {
       note.description.toLowerCase().includes(searchTerm.toLowerCase()),
     
       setTimeout(() => {
-        //Toast
-        updateToast('Search completed.', 'success', false)
+        window.scrollBy(0, 300);
+        updateToast('Search completed.', 'success', false);  //Toast
       }, 500)
       
     );
