@@ -91,7 +91,7 @@
     isLoading.value = true; // Disable the button
     updateToast('Please wait, this may take a while...', 'info', true); //Toast
     const response = await axios.post(
-      'https://to-do-pal-new.onrender.com/login', // Explicitly use the backend URL
+      `${import.meta.env.VITE_API_URL}/login`, // Explicitly use the backend URL
       {
         email: email.value,
         password: password.value,

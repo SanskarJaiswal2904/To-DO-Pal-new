@@ -8,24 +8,24 @@
   ],
   "rewrites": [
     {
-      "source": "/login",
-      "destination": "https://to-do-pal-new.onrender.com/login"
+      "source": "/api/v1/login",
+      "destination": "https://to-do-pal-new.onrender.com/api/v1/login"
     },
     {
-      "source": "/signup",
-      "destination": "https://to-do-pal-new.onrender.com/signup"
+      "source": "/api/v1/signup",
+      "destination": "https://to-do-pal-new.onrender.com/api/v1/signup"
     },
     {
-      "source": "/profile",
-      "destination": "https://to-do-pal-new.onrender.com/profile"
+      "source": "/api/v1/profile",
+      "destination": "https://to-do-pal-new.onrender.com/api/v1/profile"
     },
     {
-      "source": "/admin",
-      "destination": "https://to-do-pal-new.onrender.com/admin"
+      "source": "/api/v1/admin",
+      "destination": "https://to-do-pal-new.onrender.com/api/v1/admin"
     },
     {
-      "source": "/notadmin",
-      "destination": "https://to-do-pal-new.onrender.com/notadmin"
+      "source": "/api/v1/notadmin",
+      "destination": "https://to-do-pal-new.onrender.com/api/v1/notadmin"
     },
     {
       "source": "/:path*",

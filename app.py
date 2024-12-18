@@ -54,7 +54,7 @@ def validate_user_data(data):
     return errors
 
 # createSignup
-@app.route("/signup", methods=["POST"])
+@app.route("/api/v1/signup", methods=["POST"])
 def insertDB():
     data = request.get_json()
     errors = validate_user_data(data)
@@ -74,7 +74,7 @@ def insertDB():
     return jsonify({"message": "Signup successful"}), 201
 
 # Login
-@app.route("/login", methods=["POST"])
+@app.route("/api/v1/login", methods=["POST"])
 def login():
     data = request.get_json()
     email = data.get('email')
@@ -87,7 +87,7 @@ def login():
         return jsonify({"error": "Invalid email or password"}), 401
 
 # Get All Users
-@app.route("/alluser", methods=["GET"])
+@app.route("/api/v1/alluser", methods=["GET"])
 def get_all_users():
     try:
         users = list(db.userInfoCollection.find({}, {"_id": 1, "name": 1, "email": 1, "gender": 1, "isAdmin": 1}))
@@ -99,7 +99,7 @@ def get_all_users():
         return jsonify({"error": "An error occurred while fetching users."}), 500
 
 # Get One User
-@app.route("/user/getsingle/<string:email>", methods=["GET"])
+@app.route("/api/v1/user/getsingle/<string:email>", methods=["GET"])
 def get_single_user(email):
     user_with_email = db.userInfoCollection.find_one({"email": email})
 
@@ -109,7 +109,7 @@ def get_single_user(email):
         return jsonify({"error": "User not found"}), 404
 
 # Delete User
-@app.route("/deleteUser/<string:sno>", methods=["DELETE"])
+@app.route("/api/v1/deleteUser/<string:sno>", methods=["DELETE"])
 def delete_user(sno):
     try:
         user_id = ObjectId(sno)
@@ -132,7 +132,7 @@ def delete_user(sno):
         return jsonify({"error": "User not found"}), 404
 
 # Update User
-@app.route("/profile/update/<string:user_id>", methods=["PATCH"])
+@app.route("/api/v1/profile/update/<string:user_id>", methods=["PATCH"])
 def update_profile(user_id):
     data = request.get_json()
     name = data.get('name')
@@ -163,7 +163,7 @@ def update_profile(user_id):
         return jsonify({"error": f"No user found with ID {user_id}"}), 404
 
 # Post Notes
-@app.route("/notes", methods=["POST"])
+@app.route("/api/v1/notes", methods=["POST"])
 def save_note():
     data = request.get_json()
     title = data.get('title')
@@ -186,7 +186,7 @@ def save_note():
     return jsonify({"message": "Note saved successfully"}), 201
 
 # Get Notes
-@app.route("/notes/user/<string:user_id>", methods=["GET"])
+@app.route("/api/v1/notes/user/<string:user_id>", methods=["GET"])
 def get_notes_by_user(user_id):
     try:
         user_id = ObjectId(user_id)
@@ -197,7 +197,7 @@ def get_notes_by_user(user_id):
     return dumps(notes), 200
 
 # Delete Notes by User ID
-@app.route("/notes/deleteall/<string:user_id>", methods=["DELETE"])
+@app.route("/api/v1/notes/deleteall/<string:user_id>", methods=["DELETE"])
 def delete_all_notes(user_id):
     try:
         user_object_id = ObjectId(user_id)
@@ -211,7 +211,7 @@ def delete_all_notes(user_id):
         return jsonify({"error": "No notes found to delete"}), 404
 
 # Delete One Note
-@app.route("/notes/deleteone/<string:sno>", methods=["DELETE"])
+@app.route("/api/v1/notes/deleteone/<string:sno>", methods=["DELETE"])
 def delete_one_note(sno):
     try:
         note_id = ObjectId(sno)
@@ -226,7 +226,7 @@ def delete_one_note(sno):
         return jsonify({"error": f"No note found with ID {sno}"}), 404
 
 # Update One Note
-@app.route("/notes/update/<string:sno>", methods=["PATCH"])
+@app.route("/api/v1/notes/update/<string:sno>", methods=["PATCH"])
 def update_one_note(sno):
     data = request.get_json()
     title = data.get('title')
@@ -261,7 +261,7 @@ def update_one_note(sno):
         return jsonify({"error": f"No note found with ID {sno}"}), 404
 
 # Endpoint to handle sending OTP
-@app.route('/send-otp', methods=['POST'])
+@app.route('/api/v1/send-otp', methods=['POST'])
 def send_otp_route():
     data = request.get_json()
     email = data.get("email")
