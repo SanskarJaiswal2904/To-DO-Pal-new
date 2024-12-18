@@ -121,4 +121,56 @@ export async function sendOTP(email, otp) {
 sendOTP(process.argv[2], process.argv[3]);
 
 
+/*
+*
+
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
+export async function sendOTP(email, otp) {
+    const EMAIL_USER = process.env.VITE_EMAIL_USER;
+    const EMAIL_PASS = process.env.VITE_EMAIL_PASS;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: EMAIL_USER,
+            pass: EMAIL_PASS,
+        },
+        secure: true,
+        port: 465,
+    });
+
+    const mailOptions = {
+        from: `"TO-DO Pal Support - OTP" <${EMAIL_USER}>`,
+        to: email,
+        subject: "Your OTP Code",
+        text: `Your OTP code is: ${otp}`,
+        html: `...` // some html for decoration
+
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log("OTP sent successfully!");
+        console.log("EMAIL_USER from env: " + process.env.VITE_EMAIL_USER + " EMAIL_USER: " + EMAIL_USER);
+        console.log("EMAIL_PASS from env: " + process.env.VITE_EMAIL_PASS + " EMAIL_PASS: " + EMAIL_PASS);
+        process.stdout.write("OTP sent successfully!\n");
+    } catch (error) {
+        console.log("Error:", error);
+        process.stderr.write(`Error: ${error.message}\n`);
+    } finally{
+      console.log('Nodemailer imported successfully:', !!nodemailer); // Checks if nodemailer is loaded
+      console.log('Current working directory:', process.cwd());       // Verifies the working directory
+      console.log('Environment NODE_ENV:', process.env.NODE_ENV);     // Logs the environment mode
+    }
+}
+
+// Ensure sendOTP is called with the email and otp passed as command-line arguments
+sendOTP(process.argv[2], process.argv[3]);
+
+*/
 

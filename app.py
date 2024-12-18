@@ -292,7 +292,7 @@ def send_otp_route():
     
 
 
-# testing backend route
+# Testing backend route
 @app.route('/test')
 def test():
     return "Test route is working!"
