@@ -14,13 +14,13 @@
             @input="focusNextInput(index)"
           />
         </div>
-        <button @click="verifyOTP" class="otp-button">Verify OTP</button>
+        <button @click="verifyOTP" class="otp-button" title="Verify OTP">Verify OTP</button>
       </div>
       
       <!-- Success or Error message for OTP verification -->
       <div v-if="message" class="message">
         <p>{{ message }}</p>
-        <p style="color: red; margin-top: 15px;">For Development Purposes, OTP is 543210</p>
+        <p style="color: red; margin-top: 15px;">For Development Purposes, fallback OTP is 543210.</p>
       </div>
     </div>
 </div>
@@ -81,12 +81,12 @@
         otpSent.value = true;
         message.value = "OTP sent successfully! Please check your email.";
         setTimeout(() => {
-          message.value = "Don't forget to check Spam folder.";
+          message.value = "OTP sent! Check your Email and don't forget to check your Spam folder.";
           emit('errorMessage', message.value);
         }, 900);
         emit('otpSent', 'OTP has been sent!');
       } else {
-        message.value = "Failed to send OTP. Using fallback OTP.";
+        message.value = "An error occured in the server 😔. Use fallback OTP ! ";
         emit('errorMessage', message.value);
         generatedOTP.value = "543210"; // Fallback OTP
       }

@@ -1,7 +1,7 @@
 ##Everything Implemented
 #######################
 
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from bson import ObjectId
@@ -272,7 +272,7 @@ def send_otp_route():
     try:
         # Call the Node.js script with email and OTP as arguments
         result = subprocess.run(
-            ["node", "./src/services/emailServicePY.js", email, otp],  # Passing email and OTP as command-line args
+            ["node", "./src/services/emailServicePY", email, otp],  # Passing email and OTP as command-line args
             capture_output=True,
             text=True
         )

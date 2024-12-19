@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.7.2",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "flask-cors": "^0.0.1",
     "nodemailer": "^6.9.16",
     "pinia": "^2.1.7",
