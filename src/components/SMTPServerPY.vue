@@ -86,13 +86,13 @@
         }, 900);
         emit('otpSent', 'OTP has been sent!');
       } else {
-        message.value = "An error occured in the server 😔. Use fallback OTP ! ";
+        message.value = "An error occured in the server 😔. Use fallback OTP!";
         emit('errorMessage', message.value);
         generatedOTP.value = "543210"; // Fallback OTP
       }
     } catch (error) {
       console.error("Error:", error);
-      message.value = "An error occurred. Using fallback OTP.";
+      message.value = "An error occured in the server 😔. Use fallback OTP!";
       emit('errorMessage', message.value);
       generatedOTP.value = "543210"; // Fallback OTP
     }
