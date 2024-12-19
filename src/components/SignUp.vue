@@ -173,6 +173,9 @@ const handleOTPVerified = (message) => {
     }, 900);
     otpVerificationDone = true;
     console.log(message);
+    setTimeout(() => {
+        updateToast("Please complete the remaining fields in the form.", "info", true);
+    }, 900);
 };
 
 //Validate email and otp
