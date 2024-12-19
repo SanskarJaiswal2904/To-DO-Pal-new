@@ -33,7 +33,7 @@
   const props = defineProps({
     emailIdOfUser: String, 
     buttonClicked: Boolean
-  });
+  }); 
   
   //emit from child to parent
   const emit = defineEmits(['otpSent', 'otpVerified', 'errorMessage']);
