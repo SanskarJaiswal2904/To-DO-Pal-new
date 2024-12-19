@@ -233,21 +233,41 @@ const handleSignUp = async () => {
                         };
                         console.log("User Info Payload:", userInfo); // Debugging Payload
                         updateToast('Please wait, this may take a while...', 'info', true); //Toast
-                        await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
-                        alert("Account Created.");
-                        updateToast('Account Created Successfully.', 'success', true);
-                        resetEveryModel();
-                        router.push({
-                            name: 'SignIn'
-                        });
+                        try {
+                            const response = await axios.post(`${import.meta.env.VITE_API_URL}/signup`, userInfo);
+
+                            if (response.status === 201) {
+                                alert("Account Created.");
+                                updateToast('Account Created Successfully.', 'success', true);
+                                resetEveryModel();
+                                isLoading.value = false; // Re-enable the button
+                                router.push({
+                                    name: 'SignIn'
+                                });
+                            } else if (response.status === 409) {
+                                console.error("User already exists.");
+                                isLoading.value = false; // Re-enable the button
+                                updateToast("User already exists.", 'error', true);
+                                alert("User already exists.");
+                            } else {
+                                console.error(response);
+                                isLoading.value = false; // Re-enable the button
+                                updateToast(response?.data?.message || 'An error occurred', 'error', true);
+                                alert(response?.data?.message || 'An error occurred');
+                            }
+                        } catch (error) {
+                            console.error(error);
+                            isLoading.value = false; // Re-enable the button
+                            updateToast(error.response?.data?.message || 'An error occurred', 'error', true);
+                            alert(error.response?.data?.message || 'An error occurred');
+                        }
                     }
                 console.log("3" + error.value);
             }
             }
         } else {
             error.value = validPassword;
-            // Toast
-            updateToast(error.value, 'error', true);
+            updateToast(error.value, 'error', true); // Toast
         }
     } catch (error) {
         console.error(error);
