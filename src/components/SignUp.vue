@@ -51,7 +51,7 @@
             <label for="password" name="password" class="input-feild-title-style">Password</label>
             <div class="password-container">
                 <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required>
-                <span class="info-button" title="Password must be 8+ characters, with an uppercase letter, a lowercase letter, &#10; a number, and a special character.">i</span>
+                <span class="info-button" title="Password must be 8-20 characters, with an uppercase letter, a lowercase letter, &#10; a number, and a special character.">i</span>
             </div>
 
             <br><br>

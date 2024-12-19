@@ -57,11 +57,21 @@ def validate_user_data(data):
 @app.route("/api/v1/signup", methods=["POST"])
 def insertDB():
     data = request.get_json()
+
+    # Validate the user data (if necessary)
     errors = validate_user_data(data)
     if errors:
         return jsonify({"errors": errors}), 400
 
+    # Check if the email already exists in the database
+    existing_user = db.userInfoCollection.find_one({"email": data.get('email')})
+    if existing_user:
+        return jsonify({"message": "User already exists"}), 409  # Conflict status code
+
+    # Hash the password before storing it
     hashed_password = hash_password(data.get('password'))
+
+    # Create the user object to insert into the database
     user = {
         "name": data.get('name'),
         "email": data.get('email'),
@@ -70,8 +80,10 @@ def insertDB():
         "isAdmin": data.get('isAdmin', False)
     }
 
+    # Insert the new user into the database
     db.userInfoCollection.insert_one(user)
-    return jsonify({"message": "Signup successful"}), 201
+
+    return jsonify({"message": "Signup successful"}), 201  # Created status code
 
 # Login
 @app.route("/api/v1/login", methods=["POST"])
