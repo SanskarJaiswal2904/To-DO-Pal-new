@@ -47,55 +47,56 @@
         <br><br><br>
 
 
+        <div v-if="otpVerificationDone" id="ifVerificationIsCompleted">
+            <label for="password" name="password" class="input-feild-title-style">Password</label>
+            <div class="password-container">
+                <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required>
+                <span class="info-button" title="Password must be 8+ characters, with an uppercase letter, a lowercase letter, &#10; a number, and a special character.">i</span>
+            </div>
 
-        <label for="password" name="password" class="input-feild-title-style">Password</label>
-        <div class="password-container">
-            <input type="password" placeholder="Enter your Password" autocomplete="off" v-model.lazy="password" name="password" class="input-field" required>
-            <span class="info-button" title="Password must be 8+ characters, with an uppercase letter, a lowercase letter, &#10; a number, and a special character.">i</span>
-        </div>
+            <br><br>
+            <label for="cpassword" name="cpassword" class="input-feild-title-style">Confirm Password</label>
+            <input type="password" placeholder="Confirm Password" autocomplete="off" v-model.lazy="cpassword" name="cpassword" class="input-field" required>
 
-        <br><br>
-        <label for="cpassword" name="cpassword" class="input-feild-title-style">Confirm Password</label>
-        <input type="password" placeholder="Confirm Password" autocomplete="off" v-model.lazy="cpassword" name="cpassword" class="input-field" required>
+            <br><br>
+            <label class="input-feild-title-style-exc">
+                <input type="checkbox" v-model.lazy="isAdmin"/>
+                Are you an Admin?
+            </label>
+            <br><br>
 
-        <br><br>
-        <label class="input-feild-title-style-exc">
-            <input type="checkbox" v-model.lazy="isAdmin"/>
-            Are you an Admin?
-        </label>
-        <br><br>
+            <label for="adminCode" name="adminCode" v-if="isAdmin" class="input-feild-title-style">Admin UUID Code
+                <input type="text" placeholder="Admin UUID code is 12345 (For Development Purposes)" autocomplete="off" v-model.lazy="adminCode" name="adminCode" class="input-field"  required>
+            </label>
 
-        <label for="adminCode" name="adminCode" v-if="isAdmin" class="input-feild-title-style">Admin UUID Code
-            <input type="text" placeholder="Admin UUID code is 12345 (For Development Purposes)" autocomplete="off" v-model.lazy="adminCode" name="adminCode" class="input-field"  required>
-        </label>
+            <h3 class="input-feild-title-style-bold">Gender:</h3>
+            <br>
+            <div class="radioGender">
+                <span class="radioGenderSub">
+                    <input type="radio" id="male" name="gender" value="male" v-model.lazy="gender" required>
+                    {{ "   " }}
+                    <label for="male" class="input-feild-title-style-exc">Male</label>
+                </span>
+                <span class="radioGenderSub">
+                    <input type="radio" id="female" name="gender" value="female" v-model.lazy="gender" required>
+                    {{ "   " }}
+                    <label for="female" class="input-feild-title-style-exc">Female</label>
+                </span>
 
-        <h3 class="input-feild-title-style-bold">Gender:</h3>
-        <br>
-        <div class="radioGender">
-            <span class="radioGenderSub">
-                <input type="radio" id="male" name="gender" value="male" v-model.lazy="gender" required>
-                {{ "   " }}
-                <label for="male" class="input-feild-title-style-exc">Male</label>
-            </span>
-            <span class="radioGenderSub">
-                <input type="radio" id="female" name="gender" value="female" v-model.lazy="gender" required>
-                {{ "   " }}
-                <label for="female" class="input-feild-title-style-exc">Female</label>
-            </span>
-
-            <span class="radioGenderSub">
-                <input type="radio" id="others" name="gender" value="others" v-model.lazy="gender" required>
-                {{ "   " }}
-                <label for="others" class="input-feild-title-style-exc">Others</label>
-            </span>
-        </div>
-        <br><br>
-        <p class="errorinP" v-if="error.length > 0">*{{ error }}</p>
-        <br>
-        <button type="submit" class="signup-btn" :disabled="isLoading">
-            <span v-if="isLoading">Signing Up...</span>
-            <span v-else>Sign Up</span>
-          </button>          
+                <span class="radioGenderSub">
+                    <input type="radio" id="others" name="gender" value="others" v-model.lazy="gender" required>
+                    {{ "   " }}
+                    <label for="others" class="input-feild-title-style-exc">Others</label>
+                </span>
+            </div>
+            <br><br>
+            <p class="errorinP" v-if="error.length > 0">*{{ error }}</p>
+            <br>
+            <button type="submit" class="signup-btn" :disabled="isLoading">
+                <span v-if="isLoading">Signing Up...</span>
+                <span v-else>Sign Up</span>
+            </button>
+        </div>        
     </form>
 
     <router-link to="/signin" class="signup-link">

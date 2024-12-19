@@ -119,9 +119,9 @@ onMounted(() => {
         user.value.email = parsedData.email;
         user.value.gender = parsedData.gender;
         // user.value = userStore;
-        console.log("userdata",userData)
-        console.log("userInfo",userInfo.value)
-        console.log("user",user)
+        // console.log("userdata",userData)
+        // console.log("userInfo",userInfo.value)
+        // console.log("user",user)
         setTimeout(() => {
             isLoading.value = false;
         }, 750);
@@ -143,17 +143,17 @@ const updateProfile = async () => {
     onMounted();
     try {
         isLoading.value = true;
-        console.log("0", user.value._id)
+        // console.log("0", user.value._id)
         const response = await axios.patch(`${import.meta.env.VITE_API_URL}/profile/update/${user.value._id}`, {
             name: user.value.name,
             email: user.value.email,
             gender: user.value.gender
         });
 
-        console.log("1", response)
-        console.log("2", response.data)
-        console.log("3", user.value._id)
-        console.log("4", user.value)
+        // console.log("1", response)
+        // console.log("2", response.data)
+        // console.log("3", user.value._id)
+        // console.log("4", user.value)
 
         if (response.status === 200) {
             isLoading.value = false;

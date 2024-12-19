@@ -24,7 +24,7 @@
                     <td>
                         <label for="done">
                             <input type="checkbox" name="done" :checked="item.isCompleted"
-                            :title="`CURRENT STATUS: ${item.isCompleted ? 'Task done' : 'Task not done'}`"
+                            :title="`CURRENT STATUS : ${item.isCompleted ? 'Task done' : 'Task not done'}`"
                             @click="() => taskdone(item)">
                         </label>
                     </td>
@@ -131,7 +131,7 @@
         if (response.status === 200) {
           console.log(`Note ${sno.$oid} deleted successfully.`);
           //Toast
-          updateToast('Note deleted successfully', 'success', true);
+          updateToast('Note deleted successfully.', 'success', true);
           setTimeout(() => {
             location.reload();
           }, 1500);
@@ -161,8 +161,7 @@
         });
         if (response.status === 200) {
           console.log(`Note ${currentNote.value._id.$oid} updated successfully.`);
-          //Toast
-          updateToast('Note updated successfully', 'success', true);          
+          updateToast('Note updated successfully.', 'success', true); //Toast
           closeModal();
           setTimeout(() => {
             location.reload();
