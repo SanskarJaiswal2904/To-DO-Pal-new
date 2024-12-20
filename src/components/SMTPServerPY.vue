@@ -2,7 +2,7 @@
     <div class="container" v-if="!verificationCompleted">
     <div class="otp-container">  
       <!-- OTP Input Section -->
-      <div class="otp-section">
+      <div class="otp-section" v-if="userIsUnique">
         <div class="otp-inputs">
           <input
             v-for="(digit, index) in otp"
@@ -20,7 +20,9 @@
       <!-- Success or Error message for OTP verification -->
       <div v-if="message" class="message">
         <p>{{ message }}</p>
-        <p style="color: red; margin-top: 15px;">For Development Purposes, fallback OTP is 543210.</p>
+        <div v-if="userIsUnique">
+          <p style="color: red; margin-top: 15px;">For Development Purposes, fallback OTP is 543210.</p>
+        </div>
       </div>
     </div>
 </div>
@@ -47,11 +49,13 @@
   const generatedOTP = ref(""); // Generated OTP for verification
 
   let verificationCompleted = false;
+  let userIsUnique = true;
   
   onMounted(() => {
     console.log(props.emailIdOfUser);  // Corrected here
     console.log('OTP services Initiated.');
     email.value = props.emailIdOfUser;
+    userIsUnique = true;
     sendOTP();
   });
   
@@ -79,22 +83,33 @@
   
       if (response.data.success) {
         otpSent.value = true;
+        userIsUnique = true;
         message.value = "OTP sent successfully! Please check your email.";
         setTimeout(() => {
           message.value = "OTP sent! Check your Email and don't forget to check your Spam folder.";
           emit('errorMessage', message.value);
         }, 900);
         emit('otpSent', 'OTP has been sent!');
+      } else if (response.status === 409) {
+        message.value = "User already exists.";
+        emit('errorMessage', message.value);
+        userIsUnique = false;
       } else {
-        message.value = "An error occured in the server 😔. Use fallback OTP!";
+        message.value = "An error occurred in the server 😔. Use fallback OTP!";
         emit('errorMessage', message.value);
         generatedOTP.value = "543210"; // Fallback OTP
       }
     } catch (error) {
       console.error("Error:", error);
-      message.value = "An error occured in the server 😔. Use fallback OTP!";
-      emit('errorMessage', message.value);
-      generatedOTP.value = "543210"; // Fallback OTP
+      if (error.response?.status === 409) {
+        message.value = "User already exists.";
+        emit('errorMessage', message.value);
+        userIsUnique = false;
+      } else {
+        message.value = "An error occurred in the server 😔. Use fallback OTP!";
+        emit('errorMessage', message.value);
+        generatedOTP.value = "543210"; // Fallback OTP
+      }
     }
   }
   

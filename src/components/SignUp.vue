@@ -27,7 +27,7 @@
         <button 
             type="button"
             @click="initiateOTP" 
-            :disabled="buttonClicked" 
+            :disabled="otpVerificationDone" 
             class="otp-button" 
             :title="otpVerificationDone ? 'Email is Verified' : 'Send OTP for Email Verification'">
             <span v-if="otpVerificationDone">
@@ -39,7 +39,7 @@
         </button>
 
 
-        <SMTPServerPY v-if="otpServiceStarted"
+        <SMTPServerPY v-if="otpServiceStarted" :key="otpKey"
             :emailIdOfUser="emailIdOfUser" :buttonClicked="buttonClicked"
             @otpSent="handleOTPSent" 
             @errorMessage="handleErrorFromOTPComponent" 
@@ -133,6 +133,7 @@ const toastMessage = ref('');
 const toastType = ref('');
 const toastPausable = ref(false);
 const toastKey = ref(0);
+const otpKey = ref(0);
 const toastShown = ref(false); // New flag to prevent duplicate toasts
 
 let emailIdOfUser = '';
@@ -151,6 +152,7 @@ const initiateOTP = () => {
         updateToast("For development purposes, Default OTP is 543210", "info", true);
     }, 900);
     emailIdOfUser = email.value;
+    otpKey.value++;
     buttonClicked = true;
     otpServiceStarted = true;
 }

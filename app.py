@@ -276,15 +276,25 @@ def update_one_note(sno):
 @app.route('/api/v1/send-otp', methods=['POST'])
 def send_otp_route():
     data = request.get_json()
+
+    # Validate input
     email = data.get("email")
     otp = data.get("otp")
+    
+    if not email or not otp:
+        return jsonify({"success": False, "message": "Email and OTP are required."}), 400
+
+    # Check if the email already exists in the database
+    existing_user = db.userInfoCollection.find_one({"email": email})
+    if existing_user:
+        return jsonify({"message": "User already exists"}), 409  # Conflict status code
 
     print(f"Email: {email} OTP: {otp}")
 
     try:
         # Call the Node.js script with email and OTP as arguments
         result = subprocess.run(
-            ["node", "./src/services/emailServicePY", email, otp],  # Passing email and OTP as command-line args
+            ["node", "./src/services/emailServicePY", email, otp],
             capture_output=True,
             text=True
         )
@@ -301,7 +311,6 @@ def send_otp_route():
     except Exception as e:
         print("Error sending OTP:", str(e))
         return jsonify({"success": False, "message": "An error occurred."}), 500
-    
 
 
 # Testing backend route
