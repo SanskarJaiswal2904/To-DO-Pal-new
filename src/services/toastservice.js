@@ -6,7 +6,7 @@ const showToast = (message = Success, type = 'success', pausable = false) => {
   toast(message, {
     type: type, // Can be 'success', 'info', 'warning', 'error'
     position: 'top-right',
-    timeout: 3000, 
+    timeout: 3300, 
     closeOnClick: false,
     pauseOnHover: pausable,
     closeButton: false,

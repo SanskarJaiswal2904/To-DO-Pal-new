@@ -50,7 +50,7 @@ export async function sendOTP(email, otp) {
   text-align: center;
   margin-top: 5px;
   font-size: 24px;
-  background: linear-gradient(to right, #0090f7, #ba62fc, #f2416b);
+  background: linear-gradient(to left, #0090f7, #ba62fc, #f2416b);
   -webkit-background-clip: text;
   padding: 10px;
   color: #373636">
