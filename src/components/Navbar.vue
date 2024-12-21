@@ -217,28 +217,17 @@ const logout = () => {
 
 
 .active .nav-item {
-  color: #f4f4f4;
-  font-size: 0.9rem;
+  color: #ffd700; /* Gold highlight color */
+  border-bottom: 3px solid #ffd700;
   font-weight: bold;
+  font-size: 1.1rem;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #00c6ff, #0072ff, #8e44ad, #f45c43);
-  border-radius: 20px;
-  border: 4px double rgba(255, 255, 255, 0.8);
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5), 0 0 15px #0072ff;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 118, 255, 0.7);
-  transform: perspective(100px) rotateX(5deg);
-  animation: pulse 2s infinite alternate;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(0, 118, 255, 0.5);
   transition: all 0.3s ease-in-out;
+  animation: pulse 1.5s infinite alternate;
 }
 
-.active .nav-item:hover {
-  background: linear-gradient(135deg, #f45c43, #8e44ad, #0072ff, #00c6ff);
-  color: #ffefc4; /* Soft gold */
-  border-color: #ffefc4;
-  text-shadow: 0 0 20px rgba(255, 239, 196, 0.8), 0 0 25px rgba(255, 255, 255, 0.7);
-  transform: perspective(100px) rotateX(0deg) scale(1.15);
-  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.5), 0 15px 40px rgba(0, 118, 255, 0.9);
-}
+
 
 @keyframes pulse {
   from {
@@ -248,11 +237,6 @@ const logout = () => {
     box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.5), 0 15px 30px rgba(0, 118, 255, 0.8);
   }
 }
-
-
-
-
-
 
 .main-header {
   font-family: 'Poppins', 'Roboto', 'Arial', sans-serif;
@@ -335,4 +319,26 @@ h3{
 
 </style>
 
+<!-- .active .nav-item {
+  color: #f4f4f4;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #00c6ff, #0072ff, #8e44ad, #f45c43);
+  border-radius: 20px;
+  border: 4px double rgba(255, 255, 255, 0.8);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5), 0 0 15px #0072ff;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 118, 255, 0.7);
+  transform: perspective(100px) rotateX(5deg);
+  animation: pulse 2s infinite alternate;
+  transition: all 0.3s ease-in-out;
+}
 
+.active .nav-item:hover {
+  background: linear-gradient(135deg, #f45c43, #8e44ad, #0072ff, #00c6ff);
+  color: #ffefc4; /* Soft gold */
+  border-color: #ffefc4;
+  text-shadow: 0 0 20px rgba(255, 239, 196, 0.8), 0 0 25px rgba(255, 255, 255, 0.7);
+  transform: perspective(100px) rotateX(0deg) scale(1.15);
+  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.5), 0 15px 40px rgba(0, 118, 255, 0.9);
+} -->
