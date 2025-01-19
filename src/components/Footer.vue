@@ -1,9 +1,9 @@
 <template>
     <footer class="footer mt-auto py-3 bg-dark">
         <div class="container text-center">
-            <h2 style="margin-top: 10px; margin-bottom: 25px">© 2024 TO-DO Pal by SansKar Jaiswal </h2>
+            <h2 style="margin-top: 10px; margin-bottom: 25px"> © {{new Date().getFullYear()}} TO-DO Pal by SansKar Jaiswal </h2>
             <span class="text-white">
-                © 2024 TO-DO Pal. All rights reserved.
+              © {{new Date().getFullYear()}} TO-DO Pal. All rights reserved.
             </span>
             <div class="text-white2">
               <a class="text-white2" href="https://sanskarjaiswal2904.github.io/Sanskar-Website/index.html" style="transition: box-shadow 0.3s ease, transform 0.3s ease; text-decoration: none;" onmouseover="this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateY(0)'">
