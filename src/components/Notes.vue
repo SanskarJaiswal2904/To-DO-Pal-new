@@ -53,6 +53,15 @@
     </div>
       </div>
     </div>
+    <div class="analyze-string-container">
+      <div class="analysis-result">
+        <p><strong>Word Count:</strong> {{ analyzeString(title + text).wordCount }}</p>
+        <p><strong>Character Count:</strong> {{ analyzeString(title + text).charCount }}</p>
+        <p><strong>Sentence Count:</strong> {{ analyzeString(title + text).sentenceCount }}</p>
+        <p><strong>Paragraph Count:</strong> {{ analyzeString(title + text).paragraphCount }}</p>
+        <p><strong>Whitespace Count:</strong> {{ analyzeString(title + text).whiteSpaceCount }}</p>
+      </div>
+    </div>
     <div class="GettingUser">
       <SingleNote v-if="filteredNotes.length > 0" :items="filteredNotes" :taskdone="taskdone" />
     </div>
@@ -86,6 +95,38 @@ const toastMessage = ref('');
 const toastType = ref('');
 const toastPausable = ref(false);
 const toastKey = ref(0);
+
+const analyzeString = (data) => {
+  if (typeof data !== 'string') {
+    return "Input must be a string!";
+  }
+
+  // Trim the input to handle extra spaces
+  const words = data.trim().split(/\s+/);
+  const wordCount = data.trim() === "" ? 0 : words.length;
+
+  // Character count, excluding spaces
+  const charCount = data.replace(/\s/g, "").length;
+
+  // Sentence count (split by . ! ?)
+  const sentences = data.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0);
+  const sentenceCount = sentences.length;
+
+  // Paragraph count (split by \n)
+  const paragraphs = data.split(/\n+/).filter(paragraph => paragraph.trim().length > 0);
+  const paragraphCount = paragraphs.length;
+
+  // White space count
+  const whiteSpaceCount = (data.match(/\s/g) || []).length;
+
+  return {
+    wordCount: wordCount,
+    charCount: charCount,
+    sentenceCount: sentenceCount,
+    paragraphCount: paragraphCount,
+    whiteSpaceCount: whiteSpaceCount,
+  };
+}
 
 //Update toast
 const updateToast = (msg, type, pause) => {
@@ -272,6 +313,39 @@ const copyText = () => {
 
 
 <style scoped>
+.analyze-string-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px;
+  background: linear-gradient(to right, #ff7e5f, #feb47b, #ffcc33, #fddb92);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  font-family: Arial, sans-serif;
+  margin-left: 50px;
+}
+
+.analysis-result {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+.analysis-result p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.analysis-result p strong {
+  color: #000;
+  margin-right: 5px;
+}
+
 .buttonsBlue{
   margin-bottom: 10px;
 
