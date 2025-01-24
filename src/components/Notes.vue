@@ -59,7 +59,7 @@
         <p><strong>Character Count:</strong> {{ analyzeString(title + text).charCount }}</p>
         <p><strong>Sentence Count:</strong> {{ analyzeString(title + text).sentenceCount }}</p>
         <p><strong>Paragraph Count:</strong> {{ analyzeString(title + text).paragraphCount }}</p>
-        <p><strong>Whitespace Count:</strong> {{ analyzeString(title + text).whiteSpaceCount }}</p>
+        <p><strong>Whitespace Count:</strong> {{ analyzeString(title + text).whiteSpaceCount }}</p> 
       </div>
     </div>
     <div class="GettingUser">
