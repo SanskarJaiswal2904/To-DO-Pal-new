@@ -6,6 +6,8 @@
       <div class="skeleton-title"></div>
       <div class="skeleton-text"></div>
       <div class="skeleton-description"></div>
+      <div class="skeleton-title"></div>
+
 
     </div>
   </template>

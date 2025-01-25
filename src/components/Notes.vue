@@ -52,16 +52,17 @@
       </div>
     </div>
       </div>
-    </div>
-    <div class="analyze-string-container">
-      <div class="analysis-result">
-        <p><strong>Word Count:</strong> {{ analyzeString(title + text).wordCount }}</p>
-        <p><strong>Character Count:</strong> {{ analyzeString(title + text).charCount }}</p>
-        <p><strong>Sentence Count:</strong> {{ analyzeString(title + text).sentenceCount }}</p>
-        <p><strong>Paragraph Count:</strong> {{ analyzeString(title + text).paragraphCount }}</p>
-        <p><strong>Whitespace Count:</strong> {{ analyzeString(title + text).whiteSpaceCount }}</p> 
+
+      <div class="analyze-string-container">
+        <div class="analysis-result">
+          <p><strong>Word Count:</strong> {{ analyzeString(title + text).wordCount }}</p>
+          <p><strong>Character Count:</strong> {{ analyzeString(title + text).charCount }}</p>
+          <p><strong>Sentence Count:</strong> {{ analyzeString(title + text).sentenceCount }}</p>
+          <p><strong>Paragraph Count:</strong> {{ analyzeString(title + text).paragraphCount }}</p>
+          <p><strong>Whitespace Count:</strong> {{ analyzeString(title + text).whiteSpaceCount }}</p> 
+        </div>
       </div>
-    </div>
+  </div>
     <div class="GettingUser">
       <SingleNote v-if="filteredNotes.length > 0" :items="filteredNotes" :taskdone="taskdone" />
     </div>
