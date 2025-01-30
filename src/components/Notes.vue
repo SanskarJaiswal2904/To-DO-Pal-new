@@ -25,7 +25,7 @@
             class="input-field"
             rows="1"
             placeholder="Title"
-            v-model.lazy="title"
+            v-model.lazy.trim="title"
             required
           ></textarea>
           <br />
@@ -36,7 +36,7 @@
             class="input-field"
             rows="10"
             placeholder="What you want to do today!"
-            v-model.lazy="text"
+            v-model.lazy.trim="text"
             required
           ></textarea>
         </div>
