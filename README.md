@@ -1,7 +1,8 @@
 # To-Do Pal
 To-Do-Pal is a task management web app built with Vue.js, Flask, and MongoDB. It allows users to sign up, manage tasks, and update their profiles. The app also features an admin section for tracking user activities. Designed for ease of use, To-Do-Pal helps individuals and administrators stay organized.
 
-## Live Link : [To-Do Pal Application](https://to-do-pal-new.vercel.app/)
+## Live Link 
+[To-Do Pal Live](https://to-do-pal-new.vercel.app/)
 
 ## Layout
 <table>
